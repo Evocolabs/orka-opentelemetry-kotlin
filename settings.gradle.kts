@@ -14,15 +14,15 @@ include(":api:all")
 
 include(":api:metrics")
 
-include(":sdk:sdk-trace")
+include(":sdk:trace")
 
-include(":sdk:sdk-metrics")
+include(":sdk:metrics")
 
-include(":sdk:sdk-testing")
+include(":sdk:testing")
 
-include(":sdk:sdk-common")
+include(":sdk:common")
 
-include(":sdk:sdk-all")
+include(":sdk:all")
 
 include(":context")
 
