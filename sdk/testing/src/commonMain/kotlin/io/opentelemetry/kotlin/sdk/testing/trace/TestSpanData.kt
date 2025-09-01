@@ -19,7 +19,7 @@ import io.opentelemetry.kotlin.sdk.trace.data.StatusData
  * class.
  */
 data class TestSpanData
-internal constructor(
+constructor(
     override val name: String,
     override val kind: SpanKind,
     override val spanContext: SpanContext,

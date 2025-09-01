@@ -89,7 +89,7 @@ interface Aggregator<T> {
      * @param temporality the temporality of the accumulation.
      * @param startEpochNanos the startEpochNanos for the `Point`.
      * @param epochNanos the epochNanos for the `Point`.
-     * @return the [MetricDataType] that this `Aggregation` will produce.
+     * @return the [io.opentelemetry.kotlin.sdk.metrics.data.MetricDataType] that this `Aggregation` will produce.
      */
     fun toMetricData(
         resource: Resource,

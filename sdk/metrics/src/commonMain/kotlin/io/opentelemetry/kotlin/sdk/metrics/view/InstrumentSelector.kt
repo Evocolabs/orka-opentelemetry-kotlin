@@ -32,7 +32,7 @@ interface InstrumentSelector {
 
     /** Builder for [InstrumentSelector] instances. */
     data class Builder
-    internal constructor(
+    constructor(
         val instrumentType: InstrumentType? = null,
         val instrumentNameFilter: ((String) -> Boolean) = { true },
         val meterSelector: MeterSelector? = null

@@ -6,6 +6,13 @@ pluginManagement {
     }
     repositories {
         gradlePluginPortal()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
     }
 }
@@ -27,3 +34,5 @@ include(":sdk:all")
 include(":context")
 
 include(":semconv")
+
+include(":extension")

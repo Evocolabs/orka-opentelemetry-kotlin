@@ -28,16 +28,16 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
         this.storage = storage
     }
 
-    override fun add(increment: Double, attributes: Attributes, context: Context) {
-        storage.recordDouble(increment, attributes, context)
+    override fun add(value: Double, attributes: Attributes, context: Context) {
+        storage.recordDouble(value, attributes, context)
     }
 
-    override fun add(increment: Double, attributes: Attributes) {
-        add(increment, attributes, Context.current())
+    override fun add(value: Double, attributes: Attributes) {
+        add(value, attributes, Context.current())
     }
 
-    override fun add(increment: Double) {
-        add(increment, Attributes.empty())
+    override fun add(value: Double) {
+        add(value, Attributes.empty())
     }
 
     override fun bind(attributes: Attributes): BoundDoubleUpDownCounter {
@@ -54,12 +54,12 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
             this.attributes = attributes
         }
 
-        override fun add(increment: Double, context: Context) {
-            handle.recordDouble(increment, attributes, context)
+        override fun add(value: Double, context: Context) {
+            handle.recordDouble(value, attributes, context)
         }
 
-        override fun add(increment: Double) {
-            add(increment, Context.current())
+        override fun add(value: Double) {
+            add(value, Context.current())
         }
 
         override fun unbind() {

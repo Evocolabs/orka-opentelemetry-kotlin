@@ -41,40 +41,40 @@ class DoubleHistogramAggregator(
      * merging accumulations with different boundaries.
      */
     override fun merge(
-        previous: HistogramAccumulation,
-        current: HistogramAccumulation
+        previousCumulative: HistogramAccumulation,
+        delta: HistogramAccumulation
     ): HistogramAccumulation {
-        val previousCounts: LongArray = previous.counts
+        val previousCounts: LongArray = previousCumulative.counts
         val mergedCounts = LongArray(previousCounts.size)
         for (i in previousCounts.indices) {
-            mergedCounts[i] = previousCounts[i] + current.counts.get(i)
+            mergedCounts[i] = previousCounts[i] + delta.counts.get(i)
         }
         return HistogramAccumulation.Companion.create(
-            previous.sum + current.sum,
+            previousCumulative.sum + delta.sum,
             mergedCounts,
-            current.exemplars
+            delta.exemplars
         )
     }
 
     override fun diff(
-        previous: HistogramAccumulation,
-        current: HistogramAccumulation
+        previousCumulative: HistogramAccumulation,
+        currentCumulative: HistogramAccumulation
     ): HistogramAccumulation {
-        val previousCounts: LongArray = previous.counts
+        val previousCounts: LongArray = previousCumulative.counts
         val diffedCounts = LongArray(previousCounts.size)
         for (i in previousCounts.indices) {
-            diffedCounts[i] = current.counts.get(i) - previousCounts[i]
+            diffedCounts[i] = currentCumulative.counts.get(i) - previousCounts[i]
         }
         return HistogramAccumulation.Companion.create(
-            current.sum - previous.sum,
+            currentCumulative.sum - previousCumulative.sum,
             diffedCounts,
-            current.exemplars
+            currentCumulative.exemplars
         )
     }
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
+        instrumentationLibrary: InstrumentationLibraryInfo,
         metricDescriptor: MetricDescriptor,
         accumulationByLabels: Map<Attributes, HistogramAccumulation>,
         temporality: AggregationTemporality,
@@ -84,7 +84,7 @@ class DoubleHistogramAggregator(
     ): MetricData {
         return MetricData.createDoubleHistogram(
             resource,
-            instrumentationLibraryInfo,
+            instrumentationLibrary,
             metricDescriptor.name,
             metricDescriptor.description,
             metricDescriptor.unit,

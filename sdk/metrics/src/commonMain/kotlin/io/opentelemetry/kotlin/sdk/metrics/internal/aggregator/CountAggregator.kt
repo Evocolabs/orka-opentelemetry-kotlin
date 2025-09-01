@@ -23,15 +23,15 @@ internal class CountAggregator(private val reservoirSupplier: Supplier<ExemplarR
         return Handle(reservoirSupplier.get())
     }
 
-    override fun merge(previous: LongAccumulation, current: LongAccumulation): LongAccumulation {
-        return LongAccumulation.Companion.create(previous.value + current.value, current.exemplars)
+    override fun merge(previousCumulative: LongAccumulation, delta: LongAccumulation): LongAccumulation {
+        return LongAccumulation.Companion.create(previousCumulative.value + delta.value, delta.exemplars)
     }
 
-    override fun diff(previous: LongAccumulation, current: LongAccumulation): LongAccumulation {
+    override fun diff(previousCumulative: LongAccumulation, currentCumulative: LongAccumulation): LongAccumulation {
         // For count of measurements, `diff` returns the "DELTA" of measurements that occurred.
         // Given how we aggregate, this effectively is just the current value for async
         // instruments.
-        return current
+        return currentCumulative
     }
 
     override fun toMetricData(

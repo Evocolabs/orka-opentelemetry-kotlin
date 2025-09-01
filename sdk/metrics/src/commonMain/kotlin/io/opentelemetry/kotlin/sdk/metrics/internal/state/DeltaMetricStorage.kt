@@ -56,19 +56,16 @@ internal class DeltaMetricStorage<T>(
             }
             val boundAggregatorHandle: AggregatorHandle<T> =
                 activeCollectionStorage.getOrPut(attributes) { aggregatorHandle }
-            if (boundAggregatorHandle != null) {
-                if (boundAggregatorHandle.acquire()) {
-                    // At this moment it is guaranteed that the Bound is in the map and will not be
-                    // removed.
-                    return boundAggregatorHandle
-                }
-                // Try to remove the boundAggregator. This will race with the collect method, but
-                // only one
-                // will succeed.
-                activeCollectionStorage.remove(attributes)
-                continue
+            if (boundAggregatorHandle.acquire()) {
+                // At this moment it is guaranteed that the Bound is in the map and will not be
+                // removed.
+                return boundAggregatorHandle
             }
-            return aggregatorHandle
+            // Try to remove the boundAggregator. This will race with the collect method, but
+            // only one
+            // will succeed.
+            activeCollectionStorage.remove(attributes)
+            continue
         }
     }
 

@@ -13,6 +13,7 @@ kotlin {
 
                 implementation(libs.jetbrains.kotlinx.collections.immutable)
                 implementation(libs.jetbrains.kotlinx.coroutines.core)
+                implementation("org.jetbrains.kotlinx:atomicfu:0.25.0")
             }
         }
         val commonTest by getting {

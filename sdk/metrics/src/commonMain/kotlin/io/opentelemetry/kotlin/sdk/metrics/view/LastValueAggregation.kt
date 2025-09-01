@@ -13,6 +13,7 @@ import io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongLastValueAggr
 import io.opentelemetry.kotlin.sdk.metrics.internal.descriptor.InstrumentDescriptor
 
 /** Last-value aggregation configuration. */
+@Suppress("UNCHECKED_CAST")
 internal class LastValueAggregation private constructor() :
     io.opentelemetry.kotlin.sdk.metrics.view.Aggregation() {
     override fun <T> createAggregator(
@@ -26,7 +27,6 @@ internal class LastValueAggregation private constructor() :
                 LongLastValueAggregator(ExemplarReservoir::noSamples) as Aggregator<T>
             InstrumentValueType.DOUBLE ->
                 DoubleLastValueAggregator(ExemplarReservoir::noSamples) as Aggregator<T>
-            else -> throw IllegalArgumentException("Invalid instrument value type")
         }
     }
 

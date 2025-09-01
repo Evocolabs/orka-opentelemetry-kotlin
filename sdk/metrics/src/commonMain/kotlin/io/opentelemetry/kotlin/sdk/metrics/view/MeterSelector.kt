@@ -31,7 +31,7 @@ interface MeterSelector {
 
     /** Builder for [InstrumentSelector] instances. */
     data class Builder
-    internal constructor(
+    constructor(
         val nameFilter: (String) -> Boolean = StringPredicates.ALL,
         val versionFilter: (String) -> Boolean = StringPredicates.ALL,
         val schemaUrlFilter: (String) -> Boolean = StringPredicates.ALL

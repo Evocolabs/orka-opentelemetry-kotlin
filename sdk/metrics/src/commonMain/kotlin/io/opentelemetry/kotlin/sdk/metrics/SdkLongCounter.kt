@@ -28,40 +28,36 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
         this.storage = storage
     }
 
-    override fun add(increment: Long, attributes: Attributes, context: Context) {
-        require(increment >= 0) { "Counters can only increase" }
-        storage.recordLong(increment, attributes, context)
+    override fun add(value: Long, attributes: Attributes, context: Context) {
+        require(value >= 0) { "Counters can only increase" }
+        storage.recordLong(value, attributes, context)
     }
 
-    override fun add(increment: Long, attributes: Attributes) {
-        add(increment, attributes, Context.current())
+    override fun add(value: Long, attributes: Attributes) {
+        add(value, attributes, Context.current())
     }
 
-    override fun add(increment: Long) {
-        add(increment, Attributes.empty())
+    override fun add(value: Long) {
+        add(value, Attributes.empty())
     }
 
     override fun bind(attributes: Attributes): BoundLongCounter {
         return BoundInstrument(storage.bind(attributes), attributes)
     }
 
-    internal class BoundInstrument(handle: BoundStorageHandle, attributes: Attributes) :
-        BoundLongCounter {
-        private val handle: BoundStorageHandle
+    internal class BoundInstrument(
+        private val handle: BoundStorageHandle,
         private val attributes: Attributes
+    ) :
+        BoundLongCounter {
 
-        init {
-            this.handle = handle
-            this.attributes = attributes
+        override fun add(value: Long, context: Context) {
+            require(value >= 0) { "Counters can only increase" }
+            handle.recordLong(value, attributes, context)
         }
 
-        override fun add(increment: Long, context: Context) {
-            require(increment >= 0) { "Counters can only increase" }
-            handle.recordLong(increment, attributes, context)
-        }
-
-        override fun add(increment: Long) {
-            add(increment, Context.current())
+        override fun add(value: Long) {
+            add(value, Context.current())
         }
 
         override fun unbind() {

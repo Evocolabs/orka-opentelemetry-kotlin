@@ -28,37 +28,37 @@ import kotlinx.atomicfu.atomic
  * any time.
  */
 class LongLastValueAggregator(private val reservoirSupplier: Supplier<ExemplarReservoir>) :
-    io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.Aggregator<
-        io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation> {
+    Aggregator<
+        LongAccumulation> {
 
     override fun createHandle():
-        io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.AggregatorHandle<
-            io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation> {
+        AggregatorHandle<
+            LongAccumulation> {
         return Handle(reservoirSupplier.get())
     }
 
     override fun merge(
-        previous: io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation,
-        current: io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation
-    ): io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation {
-        return current
+        previousCumulative: LongAccumulation,
+        delta: LongAccumulation
+    ): LongAccumulation {
+        return delta
     }
 
     override fun diff(
-        previous: io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation,
-        current: io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation
-    ): io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation {
-        return current
+        previousCumulative: LongAccumulation,
+        currentCumulative: LongAccumulation
+    ): LongAccumulation {
+        return currentCumulative
     }
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
-        descriptor: MetricDescriptor,
+        instrumentationLibrary: InstrumentationLibraryInfo,
+        metricDescriptor: MetricDescriptor,
         accumulationByLabels:
             Map<
                 Attributes,
-                io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation>,
+                LongAccumulation>,
         temporality: AggregationTemporality,
         startEpochNanos: Long,
         lastCollectionEpoch: Long,
@@ -67,12 +67,12 @@ class LongLastValueAggregator(private val reservoirSupplier: Supplier<ExemplarRe
         // Last-Value ignores temporality generally, but we can set a start time on the gauge.
         return MetricData.createLongGauge(
             resource,
-            instrumentationLibraryInfo,
-            descriptor.name,
-            descriptor.description,
-            descriptor.unit,
+            instrumentationLibrary,
+            metricDescriptor.name,
+            metricDescriptor.description,
+            metricDescriptor.unit,
             LongGaugeData.create(
-                io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.MetricDataUtils
+                MetricDataUtils
                     .toLongPointList(
                         accumulationByLabels,
                         if (temporality === AggregationTemporality.CUMULATIVE) startEpochNanos
@@ -84,16 +84,16 @@ class LongLastValueAggregator(private val reservoirSupplier: Supplier<ExemplarRe
     }
 
     internal class Handle(exemplarReservoir: ExemplarReservoir) :
-        io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.AggregatorHandle<
-            io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation>(
+        AggregatorHandle<
+            LongAccumulation>(
             exemplarReservoir
         ) {
         private val current = atomic(DEFAULT_VALUE)
 
         override fun doAccumulateThenReset(
             exemplars: List<ExemplarData>
-        ): io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation {
-            return io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.LongAccumulation
+        ): LongAccumulation {
+            return LongAccumulation
                 .Companion.create(current.getAndSet(DEFAULT_VALUE), exemplars)
         }
 

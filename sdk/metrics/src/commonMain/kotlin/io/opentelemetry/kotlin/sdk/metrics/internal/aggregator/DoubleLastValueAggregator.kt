@@ -36,42 +36,42 @@ class DoubleLastValueAggregator(private val reservoirSupplier: Supplier<Exemplar
     }
 
     override fun merge(
-        previous: DoubleAccumulation,
-        current: DoubleAccumulation
+        previousCumulative: DoubleAccumulation,
+        delta: DoubleAccumulation
     ): DoubleAccumulation {
-        return current
+        return delta
     }
 
     override fun diff(
-        previous: DoubleAccumulation,
-        current: DoubleAccumulation
+        previousCumulative: DoubleAccumulation,
+        currentCumulative: DoubleAccumulation
     ): DoubleAccumulation {
-        return current
+        return currentCumulative
     }
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
-        descriptor: MetricDescriptor,
+        instrumentationLibrary: InstrumentationLibraryInfo,
+        metricDescriptor: MetricDescriptor,
         accumulationByLabels: Map<Attributes, DoubleAccumulation>,
         temporality: AggregationTemporality,
         startEpochNanos: Long,
-        lastCollectionEpochNanos: Long,
+        lastCollectionEpoch: Long,
         epochNanos: Long
     ): MetricData {
         // Gauge does not need a start time, but we send one as advised by the data model
         // for identifying resets.
         return MetricData.createDoubleGauge(
             resource,
-            instrumentationLibraryInfo,
-            descriptor.name,
-            descriptor.description,
-            descriptor.unit,
+            instrumentationLibrary,
+            metricDescriptor.name,
+            metricDescriptor.description,
+            metricDescriptor.unit,
             DoubleGaugeData.create(
                 MetricDataUtils.toDoublePointList(
                     accumulationByLabels,
                     if (temporality === AggregationTemporality.CUMULATIVE) startEpochNanos
-                    else lastCollectionEpochNanos,
+                    else lastCollectionEpoch,
                     epochNanos
                 )
             )

@@ -6,7 +6,9 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+                api(libs.jetbrains.kotlinx.datetime)
+
+                implementation("org.jetbrains.kotlinx:atomicfu:0.25.0")
             }
         }
         val commonTest by getting {
@@ -19,14 +21,6 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
-            dependsOn(commonMain)
-            dependencies {}
-        }
-        val jsMain by getting {
-            dependsOn(commonMain)
-            dependencies {}
-        }
         val nativeMain by creating { dependsOn(commonMain) }
 
         targets.forEach {

@@ -40,7 +40,6 @@ internal class SumAggregation private constructor() :
                 LongSumAggregator(instrumentDescriptor, reservoirFactory) as Aggregator<T>
             InstrumentValueType.DOUBLE ->
                 DoubleSumAggregator(instrumentDescriptor, reservoirFactory) as Aggregator<T>
-            else -> throw IllegalArgumentException("Invalid instrument value type")
         }
     }
 

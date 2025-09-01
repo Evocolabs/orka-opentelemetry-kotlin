@@ -28,22 +28,22 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
         this.storage = storage
     }
 
-    override fun add(increment: Double, attributes: Attributes, context: Context) {
+    override fun add(value: Double, attributes: Attributes, context: Context) {
         val aggregatorHandle: BoundStorageHandle = storage.bind(attributes)
         try {
-            require(increment >= 0) { "Counters can only increase" }
-            aggregatorHandle.recordDouble(increment, attributes, context)
+            require(value >= 0) { "Counters can only increase" }
+            aggregatorHandle.recordDouble(value, attributes, context)
         } finally {
             aggregatorHandle.release()
         }
     }
 
-    override fun add(increment: Double, attributes: Attributes) {
-        add(increment, attributes, Context.current())
+    override fun add(value: Double, attributes: Attributes) {
+        add(value, attributes, Context.current())
     }
 
-    override fun add(increment: Double) {
-        add(increment, Attributes.empty())
+    override fun add(value: Double) {
+        add(value, Attributes.empty())
     }
 
     override fun bind(attributes: Attributes): BoundDoubleCounter {
@@ -60,13 +60,13 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
             this.attributes = attributes
         }
 
-        override fun add(increment: Double, context: Context) {
-            require(increment >= 0) { "Counters can only increase" }
-            handle.recordDouble(increment, attributes, context)
+        override fun add(value: Double, context: Context) {
+            require(value >= 0) { "Counters can only increase" }
+            handle.recordDouble(value, attributes, context)
         }
 
-        override fun add(increment: Double) {
-            add(increment, Context.current())
+        override fun add(value: Double) {
+            add(value, Context.current())
         }
 
         override fun unbind() {

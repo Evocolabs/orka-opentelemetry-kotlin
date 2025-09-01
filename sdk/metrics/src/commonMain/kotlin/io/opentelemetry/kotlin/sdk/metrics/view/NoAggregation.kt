@@ -10,6 +10,7 @@ import io.opentelemetry.kotlin.sdk.metrics.internal.descriptor.InstrumentDescrip
 
 /** Configuration representing no aggregation. */
 internal class NoAggregation private constructor() : Aggregation() {
+    @Suppress("UNCHECKED_CAST")
     override fun <T> createAggregator(
         instrumentDescriptor: InstrumentDescriptor,
         exemplarFilter: ExemplarFilter

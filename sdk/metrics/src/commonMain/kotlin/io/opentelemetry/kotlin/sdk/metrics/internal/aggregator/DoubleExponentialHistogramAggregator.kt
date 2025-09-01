@@ -29,26 +29,26 @@ constructor(private val reservoirSupplier: Supplier<ExemplarReservoir>) :
      * performs a merge using the buckets from both accumulations, without modifying those
      * accumulations.
      *
-     * @param previousAccumulation the previously captured accumulation
+     * @param previousCumulative the previously captured accumulation
      * @param delta the newly captured (delta) accumulation
      * @return the result of the merge of the given accumulations.
      */
     override fun merge(
-        previousAccumulation: ExponentialHistogramAccumulation,
+        previousCumulative: ExponentialHistogramAccumulation,
         delta: ExponentialHistogramAccumulation
     ): ExponentialHistogramAccumulation {
-        val sum: Double = previousAccumulation.sum + delta.sum
-        val zeroCount: Long = previousAccumulation.zeroCount + delta.zeroCount
+        val sum: Double = previousCumulative.sum + delta.sum
+        val zeroCount: Long = previousCumulative.zeroCount + delta.zeroCount
 
         // Create merged buckets
         val posBuckets: DoubleExponentialHistogramBuckets =
             DoubleExponentialHistogramBuckets.Companion.merge(
-                previousAccumulation.positiveBuckets,
+                previousCumulative.positiveBuckets,
                 delta.positiveBuckets
             )
         val negBuckets: DoubleExponentialHistogramBuckets =
             DoubleExponentialHistogramBuckets.Companion.merge(
-                previousAccumulation.negativeBuckets,
+                previousCumulative.negativeBuckets,
                 delta.negativeBuckets
             )
 

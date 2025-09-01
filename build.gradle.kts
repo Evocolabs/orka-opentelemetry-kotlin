@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform") apply false
     kotlin("plugin.serialization") apply false
     id("org.jetbrains.kotlinx.kover") apply true
+    id("org.jetbrains.kotlinx.atomicfu") version "0.25.0"
 }
 
 if (System.getenv("GITHUB_RUN_NUMBER") != null) {
@@ -13,22 +14,6 @@ allprojects {
     repositories {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
-    }
-}
-
-buildscript {
-    dependencies {
-        classpath(libs.gradleplugin.kotlinx.atomicfu)
-    }
-    repositories {
-        gradlePluginPortal()
-        mavenCentral()
-    }
-}
-
-subprojects {
-    if (this.file("src").exists()) {
-        apply(plugin = "kotlinx-atomicfu")
     }
 }
 

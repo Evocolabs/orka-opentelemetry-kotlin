@@ -28,16 +28,16 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
         this.storage = storage
     }
 
-    override fun add(increment: Long, attributes: Attributes, context: Context) {
-        storage.recordLong(increment, attributes, context)
+    override fun add(value: Long, attributes: Attributes, context: Context) {
+        storage.recordLong(value, attributes, context)
     }
 
-    override fun add(increment: Long, attributes: Attributes) {
-        add(increment, attributes, Context.current())
+    override fun add(value: Long, attributes: Attributes) {
+        add(value, attributes, Context.current())
     }
 
-    override fun add(increment: Long) {
-        add(increment, Attributes.empty())
+    override fun add(value: Long) {
+        add(value, Attributes.empty())
     }
 
     override fun bind(attributes: Attributes): BoundLongUpDownCounter {
@@ -54,12 +54,12 @@ private constructor(descriptor: InstrumentDescriptor, storage: WriteableMetricSt
             this.attributes = attributes
         }
 
-        override fun add(increment: Long, context: Context) {
-            handle.recordLong(increment, attributes, context)
+        override fun add(value: Long, context: Context) {
+            handle.recordLong(value, attributes, context)
         }
 
-        override fun add(increment: Long) {
-            add(increment, Context.current())
+        override fun add(value: Long) {
+            add(value, Context.current())
         }
 
         override fun unbind() {

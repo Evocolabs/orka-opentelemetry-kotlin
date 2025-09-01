@@ -10,7 +10,8 @@ import io.opentelemetry.kotlin.api.common.getNanoseconds
 import io.opentelemetry.kotlin.context.Context
 import io.opentelemetry.kotlin.context.ImplicitContextKeyed
 import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * An interface that represents a span. It has an associated [SpanContext].
@@ -163,6 +164,7 @@ interface Span : ImplicitContextKeyed {
      * @param timestamp the explicit event timestamp since epoch.
      * @return this.
      */
+    @OptIn(ExperimentalTime::class)
     fun addEvent(name: String, timestamp: Instant): Span {
         return addEvent(name, timestamp.getNanoseconds(), DateTimeUnit.NANOSECOND)
     }
@@ -207,6 +209,7 @@ interface Span : ImplicitContextKeyed {
      * @param timestamp the explicit event timestamp since epoch.
      * @return this.
      */
+    @OptIn(ExperimentalTime::class)
     fun addEvent(name: String, attributes: Attributes, timestamp: Instant): Span {
         return addEvent(name, attributes, timestamp.getNanoseconds(), DateTimeUnit.NANOSECOND)
     }
@@ -314,6 +317,7 @@ interface Span : ImplicitContextKeyed {
      * @param timestamp the explicit timestamp from the epoch, for this `Span`. `0` indicates
      * current time should be used.
      */
+    @OptIn(ExperimentalTime::class)
     fun end(timestamp: Instant) {
         end(timestamp.getNanoseconds(), DateTimeUnit.NANOSECOND)
     }

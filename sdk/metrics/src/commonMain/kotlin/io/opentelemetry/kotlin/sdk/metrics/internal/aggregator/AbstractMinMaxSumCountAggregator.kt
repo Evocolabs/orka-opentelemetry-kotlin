@@ -16,14 +16,14 @@ import kotlin.math.min
 
 internal abstract class AbstractMinMaxSumCountAggregator : Aggregator<MinMaxSumCountAccumulation> {
     override fun merge(
-        previous: MinMaxSumCountAccumulation,
-        current: MinMaxSumCountAccumulation
+        previousCumulative: MinMaxSumCountAccumulation,
+        delta: MinMaxSumCountAccumulation
     ): MinMaxSumCountAccumulation {
         return MinMaxSumCountAccumulation.Companion.create(
-            previous.count + current.count,
-            previous.sum + current.sum,
-            min(previous.min, current.min),
-            max(previous.max, current.max)
+            previousCumulative.count + delta.count,
+            previousCumulative.sum + delta.sum,
+            min(previousCumulative.min, delta.min),
+            max(previousCumulative.max, delta.max)
         )
     }
 

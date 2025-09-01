@@ -38,29 +38,29 @@ class LongSumAggregator(
     }
 
     override fun merge(
-        previousAccumulation: LongAccumulation,
-        accumulation: LongAccumulation
+        previousCumulative: LongAccumulation,
+        delta: LongAccumulation
     ): LongAccumulation {
         return LongAccumulation.Companion.create(
-            previousAccumulation.value + accumulation.value,
-            accumulation.exemplars
+            previousCumulative.value + delta.value,
+            delta.exemplars
         )
     }
 
     override fun diff(
-        previousAccumulation: LongAccumulation,
-        accumulation: LongAccumulation
+        previousCumulative: LongAccumulation,
+        currentCumulative: LongAccumulation
     ): LongAccumulation {
         return LongAccumulation.Companion.create(
-            accumulation.value - previousAccumulation.value,
-            accumulation.exemplars
+            currentCumulative.value - previousCumulative.value,
+            currentCumulative.exemplars
         )
     }
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
-        descriptor: MetricDescriptor,
+        instrumentationLibrary: InstrumentationLibraryInfo,
+        metricDescriptor: MetricDescriptor,
         accumulationByLabels: Map<Attributes, LongAccumulation>,
         temporality: AggregationTemporality,
         startEpochNanos: Long,
@@ -69,10 +69,10 @@ class LongSumAggregator(
     ): MetricData {
         return MetricData.createLongSum(
             resource,
-            instrumentationLibraryInfo,
-            descriptor.name,
-            descriptor.description,
-            descriptor.unit,
+            instrumentationLibrary,
+            metricDescriptor.name,
+            metricDescriptor.description,
+            metricDescriptor.unit,
             LongSumData.create(
                 isMonotonic,
                 temporality,

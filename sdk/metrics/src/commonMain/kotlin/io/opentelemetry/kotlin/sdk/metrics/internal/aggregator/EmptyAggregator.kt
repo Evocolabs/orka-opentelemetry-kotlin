@@ -20,20 +20,20 @@ import io.opentelemetry.kotlin.sdk.resources.Resource
  * any time.
  */
 class EmptyAggregator private constructor() :
-    io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.Aggregator<Unit> {
+    Aggregator<Unit> {
     override fun createHandle():
-        io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.AggregatorHandle<Unit> {
+        AggregatorHandle<Unit> {
         return HANDLE
     }
 
-    override fun merge(previousAccumulation: Unit, accumulation: Unit): Unit {}
+    override fun merge(previousCumulative: Unit, delta: Unit): Unit {}
 
-    override fun diff(previousAccumulation: Unit, accumulation: Unit): Unit {}
+    override fun diff(previousCumulative: Unit, currentCumulative: Unit): Unit {}
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
-        descriptor: MetricDescriptor,
+        instrumentationLibrary: InstrumentationLibraryInfo,
+        metricDescriptor: MetricDescriptor,
         accumulationByLabels: Map<Attributes, Unit>,
         temporality: AggregationTemporality,
         startEpochNanos: Long,
@@ -44,12 +44,12 @@ class EmptyAggregator private constructor() :
     }
 
     companion object {
-        val INSTANCE: io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.Aggregator<Unit> =
+        val INSTANCE: Aggregator<Unit> =
             EmptyAggregator()
         private val HANDLE:
-            io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.AggregatorHandle<Unit> =
+            AggregatorHandle<Unit> =
             object :
-                io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.AggregatorHandle<Unit>(
+                AggregatorHandle<Unit>(
                     ExemplarReservoir.noSamples()
                 ) {
                 override fun doRecordLong(value: Long) {}

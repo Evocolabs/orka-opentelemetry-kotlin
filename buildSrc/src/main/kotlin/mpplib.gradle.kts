@@ -6,12 +6,19 @@ val ideaActive = System.getProperty("idea.active") == "true"
 val compileNative = findProperty("compileNative") == "true"
 
 kotlin {
-    jvm { withJava() }
+    androidTarget {
+        publishLibraryVariants("release", "debug")
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8" // or "11", "17" depending on your needs
+            }
+        }
+    }
     js(IR) {
         nodejs { testTask { useMocha { timeout = "80s" } } }
         browser { testTask { useMocha { timeout = "80s" } } }
     }
-    if(compileNative){
+    if (compileNative) {
         if (ideaActive) {
             val os =
                 org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
@@ -36,9 +43,10 @@ kotlin {
             watchosX64()
             tvosArm64()
             tvosX64()
-            //    androidNativeArm32()
-            //    androidNativeArm64()
+            androidNativeArm32()
+            androidNativeArm64()
             mingwX64()
+            iosSimulatorArm64()
         }
     }
 

@@ -43,29 +43,29 @@ class DoubleSumAggregator(
     }
 
     override fun merge(
-        previousAccumulation: DoubleAccumulation,
-        accumulation: DoubleAccumulation
+        previousCumulative: DoubleAccumulation,
+        delta: DoubleAccumulation
     ): DoubleAccumulation {
         return DoubleAccumulation.create(
-            previousAccumulation.value + accumulation.value,
-            accumulation.exemplars
+            previousCumulative.value + delta.value,
+            delta.exemplars
         )
     }
 
     override fun diff(
-        previousAccumulation: DoubleAccumulation,
-        accumulation: DoubleAccumulation
+        previousCumulative: DoubleAccumulation,
+        currentCumulative: DoubleAccumulation
     ): DoubleAccumulation {
         return DoubleAccumulation.create(
-            accumulation.value - previousAccumulation.value,
-            accumulation.exemplars
+            currentCumulative.value - previousCumulative.value,
+            currentCumulative.exemplars
         )
     }
 
     override fun toMetricData(
         resource: Resource,
-        instrumentationLibraryInfo: InstrumentationLibraryInfo,
-        descriptor: MetricDescriptor,
+        instrumentationLibrary: InstrumentationLibraryInfo,
+        metricDescriptor: MetricDescriptor,
         accumulationByLabels: Map<Attributes, DoubleAccumulation>,
         temporality: AggregationTemporality,
         startEpochNanos: Long,
@@ -74,10 +74,10 @@ class DoubleSumAggregator(
     ): MetricData {
         return MetricData.createDoubleSum(
             resource,
-            instrumentationLibraryInfo,
-            descriptor.name,
-            descriptor.description,
-            descriptor.unit,
+            instrumentationLibrary,
+            metricDescriptor.name,
+            metricDescriptor.description,
+            metricDescriptor.unit,
             DoubleSumData.create(
                 isMonotonic,
                 temporality,
