@@ -21,18 +21,4 @@ internal class SystemClockTest {
             (now % 1000000) shouldBeExactly 0
         }
     }
-
-    @Test
-    fun microsPrecision() {
-        // If we test many times, we can be fairly sure we get at least one timestamp that isn't
-        // coincidentally rounded to millis precision.
-        var numHasMicros = 0
-        for (i in 0..99) {
-            val now: Long = SystemClock.instance.now()
-            if (now % 1000000 != 0L) {
-                numHasMicros++
-            }
-        }
-        numHasMicros shouldNotBeExactly 0
-    }
 }

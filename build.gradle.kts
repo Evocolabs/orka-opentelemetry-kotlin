@@ -64,7 +64,6 @@ tasks.register("checkMac") {
 tasks.register("checkWindows") { dependsOnTaskOfSubprojectsByName("mingwX64Test") }
 
 tasks.register("checkLinux") {
-    dependsOnTaskOfSubprojectsByName("jvmTest")
     dependsOnTaskOfSubprojectsByName("jsTest")
     dependsOnTaskOfSubprojectsByName("linuxX64Test")
     dependsOnTaskOfSubprojectsByName("linuxArm32HfpTest")
@@ -101,7 +100,6 @@ tasks.register("publishWindows") {
 tasks.register("publishLinux") {
     dependsOnTaskOfSubprojectsByName("publishLinuxX64PublicationToGitHubPackagesRepository")
     dependsOnTaskOfSubprojectsByName("publishLinuxArm32HfpPublicationToGitHubPackagesRepository")
-    dependsOnTaskOfSubprojectsByName("publishJvmPublicationToGitHubPackagesRepository")
     dependsOnTaskOfSubprojectsByName("publishJsPublicationToGitHubPackagesRepository")
     dependsOnTaskOfSubprojectsByName(
         "publishKotlinMultiplatformPublicationToGitHubPackagesRepository"

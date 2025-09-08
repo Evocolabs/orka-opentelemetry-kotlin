@@ -9,12 +9,14 @@ import io.opentelemetry.kotlin.sdk.testing.time.TestClock
 import kotlinx.datetime.Instant
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.nanoseconds
+import kotlin.time.ExperimentalTime
 
 /** Unit tests for [AnchoredClock]. */
 internal class AnchoredClockTest {
+    @OptIn(ExperimentalTime::class)
     @Test
     fun now_PositiveIncrease() {
-        val testClock: TestClock = TestClock.create(Instant.fromEpochSeconds(0, EPOCH_NANOS))
+        val testClock: TestClock = TestClock.create()
         val anchoredClock = AnchoredClock.create(testClock)
         anchoredClock.now() shouldBe testClock.now()
         testClock.advance(3210.nanoseconds)
@@ -25,9 +27,10 @@ internal class AnchoredClockTest {
         anchoredClock.now() shouldBe 1250000000000L
     }
 
+    @OptIn(ExperimentalTime::class)
     @Test
     fun now_NegativeIncrease() {
-        val testClock: TestClock = TestClock.create(Instant.fromEpochSeconds(0, EPOCH_NANOS))
+        val testClock: TestClock = TestClock.create()
         val anchoredClock = AnchoredClock.create(testClock)
         anchoredClock.now() shouldBe testClock.now()
         testClock.advance((-3456).nanoseconds)

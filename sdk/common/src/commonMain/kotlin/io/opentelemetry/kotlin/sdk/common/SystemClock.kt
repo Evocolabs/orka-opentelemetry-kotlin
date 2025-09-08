@@ -4,20 +4,20 @@
  */
 package io.opentelemetry.kotlin.sdk.common
 
-import kotlin.time.Duration.Companion.nanoseconds
-import kotlin.time.TimeSource
+import io.opentelemetry.kotlin.api.common.getNanoseconds
+import kotlinx.datetime.Clock as DateTimeClock
 
 /** A [Clock] that uses Kotlin Multiplatform time APIs. */
 class SystemClock private constructor() : Clock {
     override fun now(): Long {
         // Get current epoch time in nanoseconds using kotlinx-datetime
-        return kotlinx.datetime.Clock.System.now().toEpochMilliseconds() * 1_000_000L
+        return DateTimeClock.System.now().toEpochMilliseconds() * 1_000_000
     }
 
     override fun nanoTime(): Long {
         // Use TimeSource.Monotonic for high-precision time measurements
         // This provides a monotonic time suitable for measuring durations
-        return TimeSource.Monotonic.markNow().elapsedNow().inWholeNanoseconds
+        return DateTimeClock.System.now().getNanoseconds()
     }
 
     companion object {

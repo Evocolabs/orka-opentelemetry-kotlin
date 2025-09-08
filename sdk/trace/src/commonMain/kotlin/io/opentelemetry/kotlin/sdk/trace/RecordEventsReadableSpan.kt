@@ -221,6 +221,7 @@ private constructor(
     }
 
     private fun endInternal(endEpochNanos: Long) {
+        println("end(timestamp: Long, unit: DateTimeUnit): ${endEpochNanos} start: ${startEpochNanos}")
         if (hasEnded()) {
             // logger.log(java.util.logging.Level.FINE, "Calling end() on an ended Span.")
             return
@@ -371,6 +372,7 @@ private constructor(
             // Call onStart here instead of calling in the constructor to make sure the span is
             // completely
             // initialized.
+            println("startEpochNanos: ${startEpochNanos}")
             spanProcessor.onStart(parentContext, span)
             return span
         }

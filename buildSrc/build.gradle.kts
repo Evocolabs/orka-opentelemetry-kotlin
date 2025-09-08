@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:8.2.0")
+    implementation(libs.android.gradle.plugin)
     implementation(libs.gradleplugin.kotlin.main)
     implementation(libs.gradleplugin.kotlinx.serialization)
 }

@@ -1,13 +1,15 @@
-package io.opentelemetry.kotlin.sdk.trace.export
+package io.opentelemetry.kotlin.exporter
 
 import io.opentelemetry.kotlin.sdk.common.CompletableResultCode
 import io.opentelemetry.kotlin.sdk.trace.data.SpanData
-import kotlinx.atomicfu.atomic
+import io.opentelemetry.kotlin.sdk.trace.export.SpanExporter
+import kotlin.math.max
 import kotlin.time.ExperimentalTime
-import kotlin.time.Instant.Companion.fromEpochMilliseconds
+import kotlin.time.Instant
+import kotlinx.atomicfu.atomic
 
 /**
- * A [SpanExporter] that outputs span data to the console.
+ * A [io.opentelemetry.kotlin.sdk.trace.export.SpanExporter] that outputs span data to the console.
  *
  * This exporter is primarily intended for development and debugging purposes.
  * It provides a simple way to visualize trace data without requiring external dependencies.
@@ -45,7 +47,10 @@ class ConsoleSpanExporter(
     private fun exportSpanPretty(span: SpanData) {
         val startTime = formatTimestamp(span.startEpochNanos)
         val endTime = formatTimestamp(span.endEpochNanos)
-        val duration = (span.endEpochNanos - span.startEpochNanos) / 1_000_000.0 // Convert to milliseconds
+        val duration = max(
+            0,
+            ((span.endEpochNanos - span.startEpochNanos) / 1_000_000.0).toInt()
+        ) // Convert to milliseconds(span.endEpochNanos - span.startEpochNanos) / 1_000_000.0 // Convert to milliseconds
 
         println("┌─────────────────────────────────────────────────")
         println("│ Span: ${span.name}")
@@ -105,7 +110,7 @@ class ConsoleSpanExporter(
     @OptIn(ExperimentalTime::class)
     private fun formatTimestamp(epochNanos: Long): String {
         val epochMillis = epochNanos / 1_000_000
-        return fromEpochMilliseconds(epochMillis).toString()
+        return Instant.Companion.fromEpochMilliseconds(epochMillis).toString()
     }
 
     override fun flush(): CompletableResultCode {

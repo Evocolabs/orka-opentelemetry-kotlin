@@ -81,12 +81,16 @@ object OtelEncodingUtils {
     /** Returns the `byte[]` decoded from the given hex [CharSequence]. */
     fun bytesFromBase16(value: CharSequence, length: Int): ByteArray {
         val result = ByteArray(length / 2)
+        bytesFromBase16(value, length, result)
+        return result
+    }
+
+    fun bytesFromBase16(value: CharSequence, length: Int, bytes: ByteArray) {
         var i = 0
         while (i < length) {
-            result[i / 2] = byteFromBase16(value[i], value[i + 1])
+            bytes[i / 2] = byteFromBase16(value[i], value[i + 1])
             i += 2
         }
-        return result
     }
 
     /** Fills `dest` with the hex encoding of `bytes`. */

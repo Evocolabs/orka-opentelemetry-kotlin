@@ -36,3 +36,4 @@ include(":context")
 include(":semconv")
 
 include(":extension")
+include(":exporter")

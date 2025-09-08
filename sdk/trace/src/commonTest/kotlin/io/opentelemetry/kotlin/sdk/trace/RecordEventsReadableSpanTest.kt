@@ -45,7 +45,9 @@ import kotlin.test.Test
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 class RecordEventsReadableSpanTest {
     private val idsGenerator = IdGenerator.random()
     private val traceId = idsGenerator.generateTraceId()

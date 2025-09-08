@@ -9,8 +9,7 @@ import io.opentelemetry.kotlin.api.common.Attributes
 import io.opentelemetry.kotlin.api.common.getNanoseconds
 import io.opentelemetry.kotlin.context.Context
 import kotlinx.datetime.DateTimeUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.Instant
+import kotlinx.datetime.Instant
 
 /**
  * [SpanBuilder] is used to construct [Span] instances which define arbitrary scopes of code that
@@ -245,7 +244,6 @@ interface SpanBuilder {
      * `Span`.
      * @return this.
      */
-    @OptIn(ExperimentalTime::class)
     fun setStartTimestamp(startTimestamp: Instant): SpanBuilder {
         return setStartTimestamp(startTimestamp.getNanoseconds(), DateTimeUnit.NANOSECOND)
     }
