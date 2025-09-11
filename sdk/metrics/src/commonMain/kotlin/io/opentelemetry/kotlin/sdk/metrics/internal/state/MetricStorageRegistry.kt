@@ -23,7 +23,7 @@ import kotlinx.collections.immutable.persistentMapOf
  * * The registered storage type MUST be either always Asynchronous or always Synchronous. No mixing
  * and matching.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class MetricStorageRegistry {
@@ -43,7 +43,7 @@ class MetricStorageRegistry {
      * metric with the same name is registered or a previously registered metric with same name and
      * equal with the current metric, otherwise throws an exception.
      *
-     * @param storage the metric storage to use or discard.
+     * @param storage the metric storage to useAndClose or discard.
      * @return the given metric storage if no metric with same name already registered, otherwise
      * the previous registered instrument.
      * @throws IllegalArgumentException if instrument cannot be registered.

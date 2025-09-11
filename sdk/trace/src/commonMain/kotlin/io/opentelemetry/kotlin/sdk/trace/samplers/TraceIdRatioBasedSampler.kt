@@ -15,7 +15,7 @@ import kotlin.math.abs
  * We assume the lower 64 bits of the traceId's are randomly distributed around the whole (long)
  * range. We convert an incoming probability into an upper bound on that value, such that we can
  * just compare the absolute value of the id and the bound to see if we are within the desired
- * probability range. Using the low bits of the traceId also ensures that systems that only use 64
+ * probability range. Using the low bits of the traceId also ensures that systems that only useAndClose 64
  * bit ID's will also work with this sampler.
  */
 internal class TraceIdRatioBasedSampler(
@@ -36,7 +36,7 @@ internal class TraceIdRatioBasedSampler(
         // may have had a different sampling samplingResult made) to allow for different sampling
         // policies,
         // and dynamic increases to sampling probabilities for debugging purposes.
-        // Note use of '<' for comparison. This ensures that we never sample for probability == 0.0,
+        // Note useAndClose of '<' for comparison. This ensures that we never sample for probability == 0.0,
         // while allowing for a (very) small chance of *not* sampling if the id == Long.MAX_VALUE.
         // This is considered a reasonable tradeoff for the simplicity/performance requirements
         // (this
@@ -68,7 +68,7 @@ internal class TraceIdRatioBasedSampler(
             require(!(ratio < 0.0 || ratio > 1.0)) { "ratio must be in range [0.0, 1.0]" }
             val idUpperBound: Long
             // Special case the limits, to avoid any possible issues with lack of precision across
-            // double/long boundaries. For probability == 0.0, we use Long.MIN_VALUE as this
+            // double/long boundaries. For probability == 0.0, we useAndClose Long.MIN_VALUE as this
             // guarantees
             // that we will never sample a trace, even in the case where the id == Long.MIN_VALUE,
             // since

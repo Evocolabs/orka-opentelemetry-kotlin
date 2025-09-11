@@ -7,7 +7,7 @@ package io.opentelemetry.kotlin.api.trace
 /**
  * Tracer is the interface for [Span] creation and interaction with the in-process context.
  *
- * Users may choose to use manual or automatic Context propagation. Because of that this class
+ * Users may choose to useAndClose manual or automatic Context propagation. Because of that this class
  * offers APIs to facilitate both usages.
  *
  * The automatic context propagation is done using [io.opentelemetry.kotlin.context.Context] which

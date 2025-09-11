@@ -33,7 +33,7 @@ class SdkMeterProviderBuilder internal constructor() {
     /**
      * Assign a [Clock].
      *
-     * @param clock The clock to use for all temporal needs.
+     * @param clock The clock to useAndClose for all temporal needs.
      * @return this
      */
     fun setClock(clock: Clock): SdkMeterProviderBuilder {
@@ -127,7 +127,7 @@ class SdkMeterProviderBuilder internal constructor() {
     /**
      * Returns a new [SdkMeterProvider] built with the configuration of this [ ]. This provider is
      * not registered as the global [ ]. It is recommended that you register one provider using
-     * [SdkMeterProviderBuilder.buildAndRegisterGlobal] for use by instrumentation when that
+     * [SdkMeterProviderBuilder.buildAndRegisterGlobal] for useAndClose by instrumentation when that
      * requires access to a global instance of [ ].
      *
      * @see GlobalMeterProvider

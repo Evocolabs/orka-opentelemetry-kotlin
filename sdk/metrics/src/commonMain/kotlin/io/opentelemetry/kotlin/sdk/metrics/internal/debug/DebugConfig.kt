@@ -9,7 +9,7 @@ import kotlinx.atomicfu.atomic
 /**
  * Determines if the SDK is in debugging mode (captures stack traces) or not.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 object DebugConfig {

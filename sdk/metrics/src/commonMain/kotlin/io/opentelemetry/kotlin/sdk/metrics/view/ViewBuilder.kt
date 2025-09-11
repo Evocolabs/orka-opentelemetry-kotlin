@@ -43,7 +43,7 @@ class ViewBuilder internal constructor() {
     /**
      * sets [Aggregation].
      *
-     * @param aggregation aggregation to use.
+     * @param aggregation aggregation to useAndClose.
      * @return this Builder.
      */
     fun setAggregation(aggregation: Aggregation): ViewBuilder {

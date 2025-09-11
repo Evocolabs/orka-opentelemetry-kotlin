@@ -9,7 +9,7 @@ import kotlin.random.Random
 /**
  * Provides random number generater constructor utilities.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 object RandomSupplier {

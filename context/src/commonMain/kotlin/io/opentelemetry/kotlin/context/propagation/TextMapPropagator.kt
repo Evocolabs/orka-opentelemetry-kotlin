@@ -16,7 +16,7 @@ import io.opentelemetry.kotlin.context.Context
  * interceptors, where the client-side injects values and the server-side extracts them.
  *
  * Specific concern values (traces, correlations, etc) will be read from the specified `Context`,
- * and resulting values will be stored in a new `Context` upon extraction. It is recommended to use
+ * and resulting values will be stored in a new `Context` upon extraction. It is recommended to useAndClose
  * a single `Context.Key` to store the entire concern data:
  *
  * <pre>`public static final Context.Key CONCERN_KEY = Context.key("my-concern-key"); public
@@ -31,11 +31,11 @@ interface TextMapPropagator {
      * The propagation fields defined. If your carrier is reused, you should delete the fields here
      * before calling [.inject] )}.
      *
-     * For example, if the carrier is a single-use or immutable request object, you don't need to
+     * For example, if the carrier is a single-useAndClose or immutable request object, you don't need to
      * clear fields as they couldn't have been set before. If it is a mutable, retryable object,
      * successive calls should clear these fields first.
      *
-     * Some use cases for this are:
+     * Some useAndClose cases for this are:
      *
      * * Allow pre-allocation of fields, especially in systems like gRPC Metadata
      * * Allow a single-pass over an iterator

@@ -8,7 +8,7 @@ import io.opentelemetry.kotlin.sdk.metrics.data.AggregationTemporality
 
 internal object TemporalityUtils {
     /**
-     * Resolves which aggregation temporality to use for a given measurement.
+     * Resolves which aggregation temporality to useAndClose for a given measurement.
      *
      * @param supported All aggregation temporalities supported by the exporter.
      * @param preferred The preferred temporality of the exporter.
@@ -23,7 +23,7 @@ internal object TemporalityUtils {
         }
         // If the exporter doesn't support the configured temporality (or there was none) and
         // doesn't
-        // have a preference, use CUMULATIVE if we can, otherwise DELTA.
+        // have a preference, useAndClose CUMULATIVE if we can, otherwise DELTA.
         if (supported.contains(AggregationTemporality.CUMULATIVE)) {
             return AggregationTemporality.CUMULATIVE
         }

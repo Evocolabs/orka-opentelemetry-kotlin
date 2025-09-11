@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("common")
 }
@@ -8,11 +10,9 @@ val compileNative = findProperty("compileNative") == "true"
 kotlin {
     androidTarget {
         publishLibraryVariants("release", "debug")
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8" // or "11", "17" depending on your needs
+            compilerOptions {
+                jvmTarget.set(JvmTarget.JVM_11)
             }
-        }
     }
     js(IR) {
         nodejs { testTask { useMocha { timeout = "80s" } } }
@@ -38,13 +38,13 @@ kotlin {
             linuxX64()
             // linuxArm32Hfp()
             // linuxMips32()
-            watchosArm32()
-            watchosArm64()
-            watchosX64()
-            tvosArm64()
-            tvosX64()
-            androidNativeArm32()
-            androidNativeArm64()
+//            watchosArm32()
+//            watchosArm64()
+//            watchosX64()
+//            tvosArm64()
+//            tvosX64()
+//            androidNativeArm32()
+//            androidNativeArm64()
             mingwX64()
             iosSimulatorArm64()
         }

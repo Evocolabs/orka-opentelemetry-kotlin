@@ -12,7 +12,7 @@ interface DoubleUpDownCounter {
     /**
      * Records a value.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The increment amount. May be positive, negative or zero.
      */
@@ -21,7 +21,7 @@ interface DoubleUpDownCounter {
     /**
      * Records a value with a set of attributes.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The increment amount. May be positive, negative or zero.
      * @param attributes A set of attributes to associate with the count.
@@ -38,7 +38,7 @@ interface DoubleUpDownCounter {
     fun add(value: Double, attributes: Attributes, context: Context)
 
     /**
-     * Constructs a bound version of this instrument where all recorded values use the given
+     * Constructs a bound version of this instrument where all recorded values useAndClose the given
      * attributes.
      */
     fun bind(attributes: Attributes): BoundDoubleUpDownCounter

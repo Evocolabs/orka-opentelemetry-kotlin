@@ -1,20 +1,12 @@
 package io.opentelemetry.kotlin
 
 interface Closeable {
-    fun close()
+    suspend fun close()
 }
 
-inline fun <T : Closeable, R> T.use(block: (T) -> R): R {
+suspend inline fun <T : Closeable, R> T.useAndClose(block: (T) -> R): R {
     try {
         return block(this)
-    } finally {
-        close()
-    }
-}
-
-inline fun <T : Closeable> T.use(block: (T) -> Unit) {
-    try {
-        block(this)
     } finally {
         close()
     }

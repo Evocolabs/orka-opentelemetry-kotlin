@@ -25,7 +25,9 @@ import kotlinx.coroutines.channels.onFailure
 import kotlinx.coroutines.channels.onSuccess
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import kotlinx.datetime.DateTimeUnit
+import kotlin.time.Duration.Companion.nanoseconds
 
 /**
  * Implementation of the [SpanProcessor] that batches spans exported by the SDK then pushes them to
@@ -234,13 +236,11 @@ internal constructor(
             val flushResult: CompletableResultCode = forceFlush()
             flushResult.whenComplete {
                 continueWork.value = false
-                val shutdownResult: CompletableResultCode = spanExporter.shutdown()
-                shutdownResult.whenComplete {
-                    if (!flushResult.isSuccess || !shutdownResult.isSuccess) {
-                        result.fail()
-                    } else {
-                        result.succeed()
-                    }
+                spanExporter.shutdown()
+                if (flushResult.isSuccess) {
+                    result.succeed()
+                } else {
+                    result.fail()
                 }
             }
             return result
@@ -266,13 +266,10 @@ internal constructor(
                 return
             }
             try {
-                val result: CompletableResultCode = spanExporter.export(currentBatch)
-                result.join(exporterTimeoutNanos, DateTimeUnit.NANOSECOND)
-                if (result.isSuccess) {
-                    exportedSpans.add(currentBatch.size.toLong())
-                } else {
-                    // logger.log(java.util.logging.Level.FINE, "Exporter failed")
+                withTimeout(exporterTimeoutNanos.nanoseconds) {
+                    spanExporter.export(currentBatch)
                 }
+                exportedSpans.add(currentBatch.size.toLong())
             } catch (e: RuntimeException) {
                 // logger.log(java.util.logging.Level.WARNING, "Exporter threw an Exception", e)
             } finally {

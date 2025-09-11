@@ -8,7 +8,7 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.opentelemetry.kotlin.context.Context
-import io.opentelemetry.kotlin.use
+import io.opentelemetry.kotlin.useAndClose
 import kotlin.test.Test
 
 class SpanTest {
@@ -21,7 +21,7 @@ class SpanTest {
     @Test
     fun testGetCurrentSpan_SetSpan() {
         val span = Span.wrap(SpanContext.invalid)
-        Context.current().with(span).makeCurrent().use { Span.current() shouldBe span }
+        Context.current().with(span).makeCurrent().useAndClose { Span.current() shouldBe span }
     }
 
     @Test
@@ -53,11 +53,11 @@ class SpanTest {
     @Test
     fun testInProcessContext() {
         val span = Span.wrap(SpanContext.invalid)
-        span.makeCurrent().use {
+        span.makeCurrent().useAndClose {
             Span.current() shouldBe span
             val secondSpan = Span.wrap(SpanContext.invalid)
             try {
-                secondSpan.makeCurrent().use { Span.current() shouldBe secondSpan }
+                secondSpan.makeCurrent().useAndClose { Span.current() shouldBe secondSpan }
             } finally {
                 Span.current() shouldBe span
             }

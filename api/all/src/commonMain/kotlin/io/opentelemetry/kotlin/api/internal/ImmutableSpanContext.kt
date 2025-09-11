@@ -11,7 +11,7 @@ import io.opentelemetry.kotlin.api.trace.TraceId
 import io.opentelemetry.kotlin.api.trace.TraceState
 
 /**
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 abstract class ImmutableSpanContext : SpanContext {

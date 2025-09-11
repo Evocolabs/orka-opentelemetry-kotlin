@@ -17,7 +17,7 @@ import io.opentelemetry.kotlin.context.ImplicitContextKeyed
  * equals/hashCode implementations. If an implementation does not strictly conform to these
  * requirements, behavior of the OpenTelemetry APIs and default SDK cannot be guaranteed.
  *
- * For this reason, it is strongly suggested that you use the implementation that is provided here
+ * For this reason, it is strongly suggested that you useAndClose the implementation that is provided here
  * via the factory methods and the [BaggageBuilder].
  */
 interface Baggage : ImplicitContextKeyed {
@@ -52,7 +52,7 @@ interface Baggage : ImplicitContextKeyed {
 
     /**
      * Create a Builder pre-initialized with the contents of this Baggage. The returned Builder will
-     * be set to not use an implicit parent, so any parent assignment must be done manually.
+     * be set to not useAndClose an implicit parent, so any parent assignment must be done manually.
      */
     fun toBuilder(): BaggageBuilder
 

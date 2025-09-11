@@ -84,7 +84,7 @@ class AttributesTest {
             arrayOf(stringKey("key1"), longKey("key2"))
         val keys = map.keys.toTypedArray()
         keys shouldContainExactlyInAnyOrder arrayOf(stringKey("key1"), longKey("key2"))
-        keys.isEmpty() // Didn't use input array.
+        keys.isEmpty() // Didn't useAndClose input array.
         map.keys.containsAll(listOf(stringKey("key1"))).shouldBeTrue()
         map.keys.containsAll(listOf(stringKey("key1"), stringKey("key3"))).shouldBeFalse()
         map.keys.isEmpty().shouldBeFalse()

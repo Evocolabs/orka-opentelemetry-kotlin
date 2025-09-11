@@ -24,7 +24,7 @@ interface SpanExporter : Closeable {
      * @param spans the collection of sampled Spans to be exported.
      * @return the result of the export, which is often an asynchronous operation.
      */
-    fun export(spans: Collection<SpanData>): CompletableResultCode
+    suspend fun export(spans: Collection<SpanData>)
 
     /**
      * Exports the collection of sampled `Span`s that have not yet been exported. Note that export
@@ -33,7 +33,7 @@ interface SpanExporter : Closeable {
      *
      * @return the result of the flush, which is often an asynchronous operation.
      */
-    fun flush(): CompletableResultCode
+    suspend fun flush()
 
     /**
      * Called when [SdkTracerProvider.shutdown] is called, if this `SpanExporter` is registered to a
@@ -41,10 +41,10 @@ interface SpanExporter : Closeable {
      *
      * @return a [CompletableResultCode] which is completed when shutdown completes.
      */
-    fun shutdown(): CompletableResultCode
+    suspend fun shutdown()
 
     /** Closes this [SpanExporter], releasing any resources. */
-    override fun close() {
+    override suspend fun close() {
         shutdown()
     }
 

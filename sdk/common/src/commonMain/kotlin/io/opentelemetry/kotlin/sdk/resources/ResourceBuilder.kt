@@ -21,7 +21,7 @@ class ResourceBuilder {
     /**
      * Puts a String attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -33,7 +33,7 @@ class ResourceBuilder {
     /**
      * Puts a long attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -45,7 +45,7 @@ class ResourceBuilder {
     /**
      * Puts a double attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -57,7 +57,7 @@ class ResourceBuilder {
     /**
      * Puts a boolean attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -69,7 +69,7 @@ class ResourceBuilder {
     /**
      * Puts a String array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -81,7 +81,7 @@ class ResourceBuilder {
     /**
      * Puts a Long array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -93,7 +93,7 @@ class ResourceBuilder {
     /**
      * Puts a Double array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -105,7 +105,7 @@ class ResourceBuilder {
     /**
      * Puts a Boolean array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */

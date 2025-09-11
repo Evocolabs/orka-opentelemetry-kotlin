@@ -18,7 +18,7 @@ package io.opentelemetry.kotlin.api.common
  * equals/hashCode implementations. If an implementation does not strictly conform to these
  * requirements, behavior of the OpenTelemetry APIs and default SDK cannot be guaranteed.
  *
- * For this reason, it is strongly suggested that you use the implementation that is provided here
+ * For this reason, it is strongly suggested that you useAndClose the implementation that is provided here
  * via the factory methods and the [AttributesBuilder].
  */
 interface Attributes {

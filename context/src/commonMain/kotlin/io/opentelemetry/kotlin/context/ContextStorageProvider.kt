@@ -13,10 +13,10 @@ package io.opentelemetry.kotlin.context
  * , [`io.grpc.context.Context`](https://grpc.github.io/grpc-java/javadoc/io/grpc/Context.html), or
  * [`org.eclipse.microprofile.context.ThreadContext`](https://download.eclipse.org/microprofile/microprofile-context-propagation-1.0.2/apidocs/org/eclipse/microprofile/context/ThreadContext.html)
  *
- * if you are already using one of those systems in your application. Then you would not have to use
- * methods like [Context.wrap] and can use your current system instead.
+ * if you are already using one of those systems in your application. Then you would not have to useAndClose
+ * methods like [Context.wrap] and can useAndClose your current system instead.
  */
 interface ContextStorageProvider {
-    /** Returns the [ContextStorage] to use to store [Context]. */
+    /** Returns the [ContextStorage] to useAndClose to store [Context]. */
     fun get(): ContextStorage
 }

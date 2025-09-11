@@ -20,19 +20,17 @@ class ConsoleSpanExporter(
 
     private val isShutdown = atomic(false)
 
-    override fun export(spans: Collection<SpanData>): CompletableResultCode {
+    override suspend fun export(spans: Collection<SpanData>) {
         if (isShutdown.value) {
-            return CompletableResultCode.ofFailure()
+            throw IllegalStateException("Exporter is shutdown")
         }
 
         return try {
             spans.forEach { span ->
                 exportSpan(span)
             }
-            CompletableResultCode.ofSuccess()
         } catch (e: Exception) {
             println("Error exporting spans: ${e.message}")
-            CompletableResultCode.ofFailure()
         }
     }
 
@@ -113,19 +111,12 @@ class ConsoleSpanExporter(
         return Instant.Companion.fromEpochMilliseconds(epochMillis).toString()
     }
 
-    override fun flush(): CompletableResultCode {
-        return if (isShutdown.value) {
-            CompletableResultCode.ofFailure()
-        } else {
-            // In KMP, we can't explicitly flush console output, but we can return success
-            // since println() calls are typically auto-flushed
-            CompletableResultCode.ofSuccess()
-        }
+    override suspend fun flush() {
+        // no-op
     }
 
-    override fun shutdown(): CompletableResultCode {
+    override suspend fun shutdown() {
         isShutdown.value = true
-        return CompletableResultCode.ofSuccess()
     }
 
     companion object {

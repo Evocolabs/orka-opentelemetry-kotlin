@@ -10,7 +10,7 @@ import io.opentelemetry.kotlin.sdk.metrics.view.View
 /**
  * Internal representation of a [View] and [InstrumentSelector].
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 interface RegisteredView {

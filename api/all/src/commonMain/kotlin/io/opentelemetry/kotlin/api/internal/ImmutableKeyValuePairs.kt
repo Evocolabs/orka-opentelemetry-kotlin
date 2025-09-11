@@ -18,7 +18,7 @@ package io.opentelemetry.kotlin.api.internal
 @Suppress("UNCHECKED_CAST")
 abstract class ImmutableKeyValuePairs<K, V>
 /**
- * Stores the raw object data directly. Does not do any de-duping or sorting. If you use this
+ * Stores the raw object data directly. Does not do any de-duping or sorting. If you useAndClose this
  * constructor, you *must* guarantee that the data has been de-duped and sorted by key before it is
  * passed here.
  */

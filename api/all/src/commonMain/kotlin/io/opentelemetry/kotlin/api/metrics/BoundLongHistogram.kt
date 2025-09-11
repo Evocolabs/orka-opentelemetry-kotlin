@@ -11,7 +11,7 @@ interface BoundLongHistogram {
     /**
      * Records a value with a pre-bound set of attributes.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The amount of the measurement.
      */

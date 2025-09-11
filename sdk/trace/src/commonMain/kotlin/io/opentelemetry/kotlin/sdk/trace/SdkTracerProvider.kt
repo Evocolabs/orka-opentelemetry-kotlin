@@ -123,7 +123,7 @@ internal constructor(
      * in undefined behavior. It should be considered a terminal operation for the SDK
      * implementation.
      */
-    override fun close() {
+    override suspend fun close() {
         shutdown()
         // .join(10, TimeUnit.SECONDS)
     }

@@ -42,7 +42,7 @@ interface ReadableSpan {
     val name: String?
 
     /**
-     * This converts this instance into an immutable SpanData instance, for use in export.
+     * This converts this instance into an immutable SpanData instance, for useAndClose in export.
      *
      * @return an immutable [SpanData] instance.
      */

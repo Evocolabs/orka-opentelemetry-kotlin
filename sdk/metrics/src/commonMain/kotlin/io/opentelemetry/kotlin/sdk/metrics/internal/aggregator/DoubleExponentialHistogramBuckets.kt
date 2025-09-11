@@ -18,7 +18,7 @@ import kotlin.math.min
  * This class handles the operations for recording, scaling, and exposing data related to the
  * exponential histogram.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 internal class DoubleExponentialHistogramBuckets : ExponentialHistogramBuckets {
@@ -96,7 +96,7 @@ internal class DoubleExponentialHistogramBuckets : ExponentialHistogramBuckets {
     /**
      * This method merges this instance with another set of buckets. It alters the underlying bucket
      * counts and scale of this instance only, so it is to be used with caution. For immutability,
-     * use the static merge() method.
+     * useAndClose the static merge() method.
      *
      * The bucket counts of this instance will be added to or subtracted from depending on the
      * additive parameter.

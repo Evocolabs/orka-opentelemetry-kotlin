@@ -25,7 +25,7 @@ import kotlinx.atomicfu.atomic
  * used to keep the state of mapping ('1' is used for unmapped and '0' is for mapped) and the rest
  * of the bits are used for reference (usage) counting.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 abstract class AggregatorHandle<T>
@@ -41,7 +41,7 @@ protected constructor(private val exemplarReservoir: ExemplarReservoir) : BoundS
     private val hasRecordings = atomic(false)
 
     /**
-     * Acquires this `Aggregator` for use. Returns `true` if the entry is still mapped and increases
+     * Acquires this `Aggregator` for useAndClose. Returns `true` if the entry is still mapped and increases
      * the reference usages, if unmapped returns `false`.
      *
      * @return `true` if successful.

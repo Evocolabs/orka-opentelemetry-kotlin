@@ -26,9 +26,9 @@ internal class ContextTest {
     fun canBeAttached() {
         val context = Context.current().with(ANIMAL, "cat")
         assertThat(Context.current()[ANIMAL]).isNull()
-        context.makeCurrent().use { ignored ->
+        context.makeCurrent().useAndClose { ignored ->
             assertThat(Context.current()[ANIMAL]).isEqualTo("cat")
-            Context.root().makeCurrent().use { ignored2 -> assertThat(Context.current()[ANIMAL]).isNull() }
+            Context.root().makeCurrent().useAndClose { ignored2 -> assertThat(Context.current()[ANIMAL]).isNull() }
             assertThat(Context.current()[ANIMAL]).isEqualTo("cat")
         }
         assertThat(Context.current()[ANIMAL]).isNull()
@@ -38,9 +38,9 @@ internal class ContextTest {
     fun attachSameTwice() {
         val context = Context.current().with(ANIMAL, "cat")
         assertThat(Context.current()[ANIMAL]).isNull()
-        context.makeCurrent().use { ignored ->
+        context.makeCurrent().useAndClose { ignored ->
             assertThat(Context.current()[ANIMAL]).isEqualTo("cat")
-            context.makeCurrent().use { ignored2 -> assertThat(Context.current()[ANIMAL]).isEqualTo("cat") }
+            context.makeCurrent().useAndClose { ignored2 -> assertThat(Context.current()[ANIMAL]).isEqualTo("cat") }
             assertThat(Context.current()[ANIMAL]).isEqualTo("cat")
         }
         assertThat(Context.current()[ANIMAL]).isNull()
@@ -50,7 +50,7 @@ internal class ContextTest {
     @Throws(java.lang.Exception::class)
     fun newThreadStartsWithRoot() {
         val context = Context.current().with(ANIMAL, "cat")
-        context.makeCurrent().use { ignored ->
+        context.makeCurrent().useAndClose { ignored ->
             assertThat(Context.current()[ANIMAL]).isEqualTo("cat")
             val current: java.util.concurrent.atomic.AtomicReference<Context> =
                 java.util.concurrent.atomic.AtomicReference<Context>()
@@ -65,9 +65,9 @@ internal class ContextTest {
     fun closingScopeWhenNotActiveIsLogged() {
         val initial = Context.current()
         val context = initial.with(ANIMAL, "cat")
-        context.makeCurrent().use { scope ->
+        context.makeCurrent().useAndClose { scope ->
             val context2 = context.with(ANIMAL, "dog")
-            context2.makeCurrent().use { ignored ->
+            context2.makeCurrent().useAndClose { ignored ->
                 assertThat(Context.current()[ANIMAL]).isEqualTo("dog")
                 scope.close()
             }
@@ -153,7 +153,7 @@ internal class ContextTest {
         assertThat(value).hasValue("cat")
         executor.execute(callback)
         assertThat(value).hasValue(null)
-        CAT.makeCurrent().use { ignored ->
+        CAT.makeCurrent().useAndClose { ignored ->
             Context.taskWrapping(executor).execute(callback)
             assertThat(value).hasValue("cat")
         }
@@ -336,9 +336,9 @@ internal class ContextTest {
     @Test
     fun attachSameContext() {
         val context = Context.current().with(ANIMAL, "cat")
-        context.makeCurrent().use { scope1 ->
+        context.makeCurrent().useAndClose { scope1 ->
             assertThat(scope1).isNotSameAs(Scope.noop())
-            context.makeCurrent().use { scope2 -> assertThat(scope2).isSameAs(Scope.noop()) }
+            context.makeCurrent().useAndClose { scope2 -> assertThat(scope2).isSameAs(Scope.noop()) }
         }
     }
 

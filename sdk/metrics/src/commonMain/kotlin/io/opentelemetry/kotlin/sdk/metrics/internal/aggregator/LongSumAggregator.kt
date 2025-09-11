@@ -20,7 +20,7 @@ import kotlinx.atomicfu.atomic
 /**
  * Sum aggregator that keeps values as `long`s.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class LongSumAggregator(

@@ -94,7 +94,7 @@ internal data class StressTestRunner(
 
     internal interface OperationUpdater {
         /** Called every operation. */
-        fun update()
+        suspend fun update()
     }
 
     companion object {

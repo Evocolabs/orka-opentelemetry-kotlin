@@ -5,10 +5,10 @@ plugins {
     id("org.jetbrains.kotlinx.atomicfu") version "0.25.0"
 }
 
-if (System.getenv("GITHUB_RUN_NUMBER") != null) {
-    version = "1.0.${System.getenv("GITHUB_RUN_NUMBER")}"
+version = if (System.getenv("GITHUB_RUN_NUMBER") != null) {
+    "1.0.${System.getenv("GITHUB_RUN_NUMBER")}"
 } else {
-    version = "1.0.0"
+    "1.0.0"
 }
 allprojects {
     repositories {
@@ -22,7 +22,7 @@ subprojects {
     version = rootProject.version
     tasks {
         withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-            kotlinOptions.freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+            compilerOptions.freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
         withType<org.gradle.api.tasks.bundling.AbstractArchiveTask> {
             isPreserveFileTimestamps = false
@@ -53,7 +53,6 @@ subprojects {
 rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin> {
     rootProject
         .the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>()
-        .nodeVersion = "16.13.1"
 }
 // Build pipeline Tasks
 tasks.register("checkMac") {

@@ -11,7 +11,7 @@ interface BoundDoubleUpDownCounter {
     /**
      * Records a value with pre-bound attributes.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The increment amount. May be positive, negative or zero.
      */

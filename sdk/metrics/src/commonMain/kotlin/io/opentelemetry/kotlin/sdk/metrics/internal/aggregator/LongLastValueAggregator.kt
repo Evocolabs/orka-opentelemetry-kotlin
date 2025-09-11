@@ -24,7 +24,7 @@ import kotlinx.atomicfu.atomic
  * problem because LastValueAggregator is currently only available for Observers which record all
  * values once.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class LongLastValueAggregator(private val reservoirSupplier: Supplier<ExemplarReservoir>) :

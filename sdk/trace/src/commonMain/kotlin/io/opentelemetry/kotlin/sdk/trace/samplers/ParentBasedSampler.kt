@@ -13,7 +13,7 @@ import io.opentelemetry.kotlin.sdk.trace.data.LinkData
 
 /**
  * A Sampler that uses the sampled flag of the parent Span, if present. If the span has no parent,
- * this Sampler will use the "root" sampler that it is built with. See documentation on the [ ]
+ * this Sampler will useAndClose the "root" sampler that it is built with. See documentation on the [ ]
  * methods for the details on the various configurable options.
  */
 internal class ParentBasedSampler(

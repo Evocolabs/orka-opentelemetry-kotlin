@@ -24,7 +24,7 @@ import io.opentelemetry.kotlin.sdk.metrics.view.InstrumentSelector
 import io.opentelemetry.kotlin.sdk.metrics.view.View
 import io.opentelemetry.kotlin.sdk.resources.Resource
 import io.opentelemetry.kotlin.sdk.testing.time.TestClock
-import io.opentelemetry.kotlin.use
+import io.opentelemetry.kotlin.useAndClose
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.DateTimeUnit
 import kotlin.test.Test
@@ -526,7 +526,7 @@ class SdkMeterProviderTest {
         // Make sure whether or not we explicitly pass baggage, all values have it appended.
         counter.add(1, Attributes.empty(), context)
         counter.bind(Attributes.empty()).add(1, context)
-        context.makeCurrent().use {
+        context.makeCurrent().useAndClose {
             counter.add(1, Attributes.empty())
             counter.bind(Attributes.empty()).add(1)
         }
@@ -691,7 +691,7 @@ class SdkMeterProviderTest {
 
     @Test
     fun sdkMeterProvider_supportsMultipleCollectorsDelta() {
-        // Note: we use a view to do delta aggregation, but any view ALWAYS uses double-precision
+        // Note: we useAndClose a view to do delta aggregation, but any view ALWAYS uses double-precision
         // right
         // now.
         val collector1 = InMemoryMetricReader.createDelta()

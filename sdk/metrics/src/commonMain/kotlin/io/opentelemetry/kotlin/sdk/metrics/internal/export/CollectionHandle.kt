@@ -12,7 +12,7 @@ import kotlinx.atomicfu.atomic
  *
  * This class provides an efficient means of leasing and tracking exporters.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class CollectionHandle

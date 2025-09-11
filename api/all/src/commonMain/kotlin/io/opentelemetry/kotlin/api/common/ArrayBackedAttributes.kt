@@ -13,7 +13,7 @@ internal class ArrayBackedAttributes : ImmutableKeyValuePairs<AttributeKey<*>, A
     ) : super(data, keyComparator)
 
     /**
-     * Only use this constructor if you can guarantee that the data has been de-duped, sorted by key
+     * Only useAndClose this constructor if you can guarantee that the data has been de-duped, sorted by key
      * and contains no null values or null/empty keys.
      *
      * @param data the raw data

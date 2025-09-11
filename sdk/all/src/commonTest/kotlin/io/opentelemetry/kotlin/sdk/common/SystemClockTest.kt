@@ -11,7 +11,7 @@ import kotlin.test.Test
 // This test is placed in the all artifact instead of the common one so it uses the dependency jar
 // instead of the classes directly, which allows verifying mrjar behavior.
 internal class SystemClockTest {
-    // @Test
+    @Test
     fun millisPrecision() {
         // If we test many times, we can be fairly sure we didn't just get lucky with having a
         // rounded

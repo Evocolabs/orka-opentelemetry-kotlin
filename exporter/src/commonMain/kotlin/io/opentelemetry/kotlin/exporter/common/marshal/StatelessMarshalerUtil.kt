@@ -50,7 +50,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a string field. This method adds elements to context, use together with
+     * Returns the size of a string field. This method adds elements to context, useAndClose together with
      * Serializer.serializeStringWithContext.
      */
     fun sizeStringWithContext(
@@ -81,7 +81,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a repeated message field. This method adds elements to context, use
+     * Returns the size of a repeated message field. This method adds elements to context, useAndClose
      * together with Serializer.serializeRepeatedMessageWithContext.
      */
     fun <T> sizeRepeatedMessageWithContext(
@@ -133,7 +133,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a repeated message field. This method adds elements to context, use
+     * Returns the size of a repeated message field. This method adds elements to context, useAndClose
      * together with Serializer.serializeRepeatedMessageWithContext.
      */
     fun <T> sizeRepeatedMessageWithContext(
@@ -157,7 +157,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a repeated message field. This method adds elements to context, use
+     * Returns the size of a repeated message field. This method adds elements to context, useAndClose
      * together with Serializer.serializeRepeatedMessageWithContext.
      */
     fun <K, V> sizeRepeatedMessageWithContext(
@@ -179,7 +179,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a repeated message field. This method adds elements to context, use
+     * Returns the size of a repeated message field. This method adds elements to context, useAndClose
      * together with Serializer.serializeRepeatedMessageWithContext.
      */
     fun sizeRepeatedMessageWithContext(
@@ -200,7 +200,7 @@ object StatelessMarshalerUtil {
 
 
     /**
-     * Returns the size of a message field. This method adds elements to context, use together with
+     * Returns the size of a message field. This method adds elements to context, useAndClose together with
      * Serializer.serializeMessageWithContext.
      */
     fun <T> sizeMessageWithContext(
@@ -217,7 +217,7 @@ object StatelessMarshalerUtil {
     }
 
     /**
-     * Returns the size of a message field. This method adds elements to context, use together with
+     * Returns the size of a message field. This method adds elements to context, useAndClose together with
      * Serializer.serializeMessageWithContext.
      */
     fun <K, V> sizeMessageWithContext(
@@ -241,7 +241,7 @@ object StatelessMarshalerUtil {
 
     // Visible for testing
     internal fun getUtf8Size(string: String, useUnsafe: Boolean): Int {
-        // For KMP, we'll use the safe approach since unsafe operations aren't portable
+        // For KMP, we'll useAndClose the safe approach since unsafe operations aren't portable
         return encodedUtf8Length(string)
     }
 
@@ -349,7 +349,7 @@ object StatelessMarshalerUtil {
         utf8Length: Int,
         useUnsafe: Boolean
     ) {
-        // For KMP, we'll use the safe approach
+        // For KMP, we'll useAndClose the safe approach
         encodeUtf8(output, string)
     }
 

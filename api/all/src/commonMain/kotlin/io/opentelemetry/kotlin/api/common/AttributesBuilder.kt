@@ -24,7 +24,7 @@ interface AttributesBuilder {
     /**
      * Puts a String attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -35,7 +35,7 @@ interface AttributesBuilder {
     /**
      * Puts a long attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -46,7 +46,7 @@ interface AttributesBuilder {
     /**
      * Puts a double attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -57,7 +57,7 @@ interface AttributesBuilder {
     /**
      * Puts a boolean attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -68,7 +68,7 @@ interface AttributesBuilder {
     /**
      * Puts a String array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -79,7 +79,7 @@ interface AttributesBuilder {
     /**
      * Puts a Long array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -90,7 +90,7 @@ interface AttributesBuilder {
     /**
      * Puts a Double array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */
@@ -101,7 +101,7 @@ interface AttributesBuilder {
     /**
      * Puts a Boolean array attribute into this.
      *
-     * Note: It is strongly recommended to use [.put], and pre-allocate your keys, if possible.
+     * Note: It is strongly recommended to useAndClose [.put], and pre-allocate your keys, if possible.
      *
      * @return this Builder
      */

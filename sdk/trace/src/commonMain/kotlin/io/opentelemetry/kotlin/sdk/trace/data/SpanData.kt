@@ -37,7 +37,7 @@ interface SpanData {
      *
      * @return the trace id.
      */
-    val traceId: String?
+    val traceId: String
         get() = spanContext.traceId
 
     /**
@@ -45,7 +45,7 @@ interface SpanData {
      *
      * @return the span id.
      */
-    val spanId: String?
+    val spanId: String
         get() = spanContext.spanId
 
     /**

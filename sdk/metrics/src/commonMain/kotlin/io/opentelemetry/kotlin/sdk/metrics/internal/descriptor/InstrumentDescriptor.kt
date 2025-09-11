@@ -11,7 +11,7 @@ import io.opentelemetry.kotlin.sdk.metrics.internal.debug.SourceInfo
 /**
  * Describes an instrument that was registered to record data.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 interface InstrumentDescriptor {

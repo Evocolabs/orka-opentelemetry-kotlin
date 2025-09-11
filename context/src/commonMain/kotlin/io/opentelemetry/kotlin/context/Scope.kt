@@ -8,7 +8,7 @@ import io.opentelemetry.kotlin.Closeable
 
 /**
  * An [AutoCloseable] that represents a mounted context for a block of code. A failure to call
- * [Scope.close] will generally break tracing or cause memory leaks. It is recommended that you use
+ * [Scope.close] will generally break tracing or cause memory leaks. It is recommended that you useAndClose
  * this class with a `try-with-resources` block:
  *
  * <pre>`try (Scope ignored = span.makeCurrent()) { ... } `</pre> *

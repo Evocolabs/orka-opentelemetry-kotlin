@@ -54,7 +54,7 @@ internal constructor(
 
         // Here we construct our own unique handle ids for this SDK.
         // These are guaranteed to be unique per-reader for this SDK, and only this SDK.
-        // These are *only* mutated in our constructor, and safe to use concurrently after
+        // These are *only* mutated in our constructor, and safe to useAndClose concurrently after
         // construction.
         val collectors: MutableSet<CollectionHandle> = CollectionHandle.mutableSet()
         val handleSupplier: Supplier<CollectionHandle> = CollectionHandle.createSupplier()
@@ -102,7 +102,7 @@ internal constructor(
     }
 
     /** Close the meter provider. Calls [.shutdown] and blocks waiting for it to complete. */
-    override fun close() {
+    override suspend fun close() {
         shutdown()
     }
 

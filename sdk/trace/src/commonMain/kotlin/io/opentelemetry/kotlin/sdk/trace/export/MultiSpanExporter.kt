@@ -16,19 +16,10 @@ import io.opentelemetry.kotlin.sdk.trace.data.SpanData
  */
 internal class MultiSpanExporter
 private constructor(private val spanExporters: Array<SpanExporter>) : SpanExporter {
-    override fun export(spans: Collection<SpanData>): CompletableResultCode {
-        val results: List<CompletableResultCode> =
-            spanExporters.map { spanExporter ->
-                try {
-                    spanExporter.export(spans)
-                } catch (_: Exception) {
-                    // If an exception was thrown by the exporter
-                    // logger.log(java.util.logging.Level.WARNING, "Exception thrown by the
-                    // export.", e)
-                    CompletableResultCode.ofFailure()
-                }
-            }
-        return CompletableResultCode.ofAll(results)
+    override suspend fun export(spans: Collection<SpanData>) {
+        spanExporters.map { spanExporter ->
+            spanExporter.export(spans)
+        }
     }
 
     /**
@@ -36,34 +27,16 @@ private constructor(private val spanExporters: Array<SpanExporter>) : SpanExport
      *
      * @return the result of the operation
      */
-    override fun flush(): CompletableResultCode {
-        val results: List<CompletableResultCode> =
-            spanExporters.map { spanExporter ->
-                try {
-                    spanExporter.flush()
-                } catch (_: Exception) {
-                    // If an exception was thrown by the exporter
-                    // logger.log(java.util.logging.Level.WARNING, "Exception thrown by the
-                    // export.", e)
-                    CompletableResultCode.ofFailure()
-                }
-            }
-        return CompletableResultCode.ofAll(results)
+    override suspend fun flush() {
+        spanExporters.map { spanExporter ->
+            spanExporter.flush()
+        }
     }
 
-    override fun shutdown(): CompletableResultCode {
-        val results: List<CompletableResultCode> =
-            spanExporters.map { spanExporter ->
-                try {
-                    spanExporter.shutdown()
-                } catch (_: Exception) {
-                    // If an exception was thrown by the exporter
-                    // logger.log(java.util.logging.Level.WARNING, "Exception thrown by the
-                    // export.", e)
-                    CompletableResultCode.ofFailure()
-                }
-            }
-        return CompletableResultCode.ofAll(results)
+    override suspend fun shutdown() {
+        spanExporters.map { spanExporter ->
+            spanExporter.shutdown()
+        }
     }
 
     companion object {

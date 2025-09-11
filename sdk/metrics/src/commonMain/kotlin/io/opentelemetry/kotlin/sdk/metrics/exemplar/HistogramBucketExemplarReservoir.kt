@@ -14,7 +14,7 @@ import io.opentelemetry.kotlin.sdk.metrics.internal.aggregator.ExplicitBucketHis
 /**
  * Constructs a new reservoir sampler that aligns exemplars with histogram buckets.
  *
- * @param clock The clock to use when annotating measurements with time.
+ * @param clock The clock to useAndClose when annotating measurements with time.
  * @param boundaries Histogram bucket boundaries.
  */
 internal class HistogramBucketExemplarReservoir(clock: Clock, private val boundaries: DoubleArray) :

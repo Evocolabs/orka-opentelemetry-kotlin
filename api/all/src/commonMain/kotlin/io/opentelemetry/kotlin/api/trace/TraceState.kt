@@ -24,7 +24,7 @@ package io.opentelemetry.kotlin.api.trace
  * Implementations of this interface that do not conform to the W3C specification risk
  * incompatibility with W3C-compatible implementations.
  *
- * For these reasons, it is strongly suggested that you use the implementation that is provided here
+ * For these reasons, it is strongly suggested that you useAndClose the implementation that is provided here
  * via the [TraceState.builder].
  */
 interface TraceState {

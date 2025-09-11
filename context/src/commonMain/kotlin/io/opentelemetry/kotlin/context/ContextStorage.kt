@@ -7,7 +7,7 @@
  * Copyright 2020 LINE Corporation
  *
  * LINE Corporation licenses this file to you under the Apache License,
- * version 2.0 (the "License"); you may not use this file except in compliance
+ * version 2.0 (the "License"); you may not useAndClose this file except in compliance
  * with the License. You may obtain a copy of the License at:
  *
  *   https://www.apache.org/licenses/LICENSE-2.0
@@ -24,7 +24,7 @@ package io.opentelemetry.kotlin.context
  * The storage for storing and retrieving the current [Context].
  *
  * If you want to implement your own storage or add some hooks when a [Context] is attached and
- * restored, you should use [ContextStorageProvider]. Here's an example that sets MDC before
+ * restored, you should useAndClose [ContextStorageProvider]. Here's an example that sets MDC before
  * [Context] is attached:
  *
  * <pre>`> public class MyStorage implements ContextStorageProvider { > > @Override > public
@@ -61,9 +61,9 @@ interface ContextStorage {
 
     companion object {
         /**
-         * Returns the [ContextStorage] being used by this application. This is only for use when
-         * integrating with other context propagation mechanisms and not meant for direct use. To
-         * attach or detach a [Context] in an application, use [Context.makeCurrent] and [ ]
+         * Returns the [ContextStorage] being used by this application. This is only for useAndClose when
+         * integrating with other context propagation mechanisms and not meant for direct useAndClose. To
+         * attach or detach a [Context] in an application, useAndClose [Context.makeCurrent] and [ ]
          * [Scope.close].
          */
         fun get(): ContextStorage {

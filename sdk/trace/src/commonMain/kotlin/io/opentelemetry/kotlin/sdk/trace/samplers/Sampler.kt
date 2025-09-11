@@ -97,10 +97,10 @@ interface Sampler {
          * Returns a new TraceIdRatioBased [Sampler]. The ratio of sampling a trace is equal to that
          * of the specified ratio.
          *
-         * The algorithm used by the [Sampler] is undefined, notably it may or may not use parts of
+         * The algorithm used by the [Sampler] is undefined, notably it may or may not useAndClose parts of
          * the trace ID when generating a sampling decision. Currently, only the ratio of traces
          * that are sampled can be relied on, not how the sampled traces are determined. As such, it
-         * is recommended to only use this [Sampler] for root spans using [ ][Sampler.parentBased].
+         * is recommended to only useAndClose this [Sampler] for root spans using [ ][Sampler.parentBased].
          *
          * @param ratio The desired ratio of sampling. Must be within [0.0, 1.0].
          * @return a new TraceIdRatioBased [Sampler].

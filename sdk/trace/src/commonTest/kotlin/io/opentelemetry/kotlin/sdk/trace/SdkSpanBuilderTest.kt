@@ -38,7 +38,7 @@ import io.opentelemetry.kotlin.sdk.trace.data.LinkData
 import io.opentelemetry.kotlin.sdk.trace.samplers.Sampler
 import io.opentelemetry.kotlin.sdk.trace.samplers.SamplingDecision
 import io.opentelemetry.kotlin.sdk.trace.samplers.SamplingResult
-import io.opentelemetry.kotlin.use
+import io.opentelemetry.kotlin.useAndClose
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlin.test.Test
@@ -590,7 +590,7 @@ class SdkSpanBuilderTest {
     fun noParent() {
         val parent = sdkTracer.spanBuilder(SPAN_NAME).startSpan()
         try {
-            parent.makeCurrent().use {
+            parent.makeCurrent().useAndClose {
                 val span = sdkTracer.spanBuilder(SPAN_NAME).setNoParent().startSpan()
                 try {
                     span.spanContext.traceId shouldNotBe parent.spanContext.traceId
@@ -711,7 +711,7 @@ class SdkSpanBuilderTest {
         val parent = sdkTracer.spanBuilder(SPAN_NAME).startSpan()
         try {
             var span: RecordEventsReadableSpan? = null
-            parent.makeCurrent().use {
+            parent.makeCurrent().useAndClose {
                 span =
                     sdkTracer.spanBuilder(SPAN_NAME).setParent(emptyContext).startSpan() as
                         RecordEventsReadableSpan
@@ -733,7 +733,7 @@ class SdkSpanBuilderTest {
     fun parentCurrentSpan() {
         val parent = sdkTracer.spanBuilder(SPAN_NAME).startSpan()
         try {
-            parent.makeCurrent().use { ignored ->
+            parent.makeCurrent().useAndClose { ignored ->
                 val implicitParent = Context.current()
                 val span = sdkTracer.spanBuilder(SPAN_NAME).startSpan() as RecordEventsReadableSpan
                 try {
@@ -795,7 +795,7 @@ class SdkSpanBuilderTest {
     fun parent_clockIsSame() {
         val parent = sdkTracer.spanBuilder(SPAN_NAME).startSpan()
         try {
-            parent.makeCurrent().use {
+            parent.makeCurrent().useAndClose {
                 val span = sdkTracer.spanBuilder(SPAN_NAME).startSpan() as RecordEventsReadableSpan
                 span.clock shouldBe (parent as RecordEventsReadableSpan).clock
             }
@@ -808,7 +808,7 @@ class SdkSpanBuilderTest {
     fun parentCurrentSpan_clockIsSame() {
         val parent = sdkTracer.spanBuilder(SPAN_NAME).startSpan()
         try {
-            parent.makeCurrent().use {
+            parent.makeCurrent().useAndClose {
                 val span = sdkTracer.spanBuilder(SPAN_NAME).startSpan() as RecordEventsReadableSpan
                 span.clock shouldBe (parent as RecordEventsReadableSpan).clock
             }

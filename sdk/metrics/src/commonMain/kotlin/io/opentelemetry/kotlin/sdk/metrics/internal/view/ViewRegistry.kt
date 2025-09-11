@@ -13,7 +13,7 @@ import io.opentelemetry.kotlin.sdk.metrics.view.View
 /**
  * Central location for Views to be registered. Registration of a view is done via the [ ].
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class ViewRegistry internal constructor(private val reverseRegistration: List<RegisteredView>) {

@@ -24,7 +24,7 @@ class SdkTracerProviderBuilder internal constructor() {
      * The `clock` must be thread-safe and return immediately (no remote calls, as contention free
      * as possible).
      *
-     * @param clock The clock to use for all temporal needs.
+     * @param clock The clock to useAndClose for all temporal needs.
      * @return this
      */
     fun setClock(clock: Clock): SdkTracerProviderBuilder {
@@ -88,13 +88,13 @@ class SdkTracerProviderBuilder internal constructor() {
     }
 
     /**
-     * Assign a [Sampler] to use for sampling traces. [Sampler] will be called each time a
+     * Assign a [Sampler] to useAndClose for sampling traces. [Sampler] will be called each time a
      * [io.opentelemetry.kotlin.api.trace.Span] is started.
      *
      * The `sampler` must be thread-safe and return immediately (no remote calls, as contention free
      * as possible).
      *
-     * @param sampler the [Sampler] to use for sampling traces.
+     * @param sampler the [Sampler] to useAndClose for sampling traces.
      * @return this
      */
     fun setSampler(sampler: Sampler): SdkTracerProviderBuilder {

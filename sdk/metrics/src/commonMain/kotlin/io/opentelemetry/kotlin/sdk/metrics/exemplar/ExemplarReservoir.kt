@@ -52,9 +52,9 @@ interface ExemplarReservoir {
         /**
          * A Reservoir sampler with fixed size that stores the given number of exemplars.
          *
-         * @param clock The clock to use when annotating measurements with time.
+         * @param clock The clock to useAndClose when annotating measurements with time.
          * @param size The maximum number of exemplars to preserve.
-         * @param randomSupplier The random number generater to use for sampling.
+         * @param randomSupplier The random number generater to useAndClose for sampling.
          */
         fun fixedSizeReservoir(
             clock: Clock,
@@ -67,7 +67,7 @@ interface ExemplarReservoir {
         /**
          * A Reservoir sampler that preserves the latest seen measurement per-histogram bucket.
          *
-         * @param clock The clock to use when annotating measurements with time.
+         * @param clock The clock to useAndClose when annotating measurements with time.
          * @param boundaries A list of (inclusive) upper bounds for the histogram. Should be in
          * order from lowest to highest.
          */

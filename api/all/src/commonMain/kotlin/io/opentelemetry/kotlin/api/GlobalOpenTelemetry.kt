@@ -58,10 +58,10 @@ object GlobalOpenTelemetry {
      * return the provided [OpenTelemetry] instance. This should be called once as early as possible
      * in your application initialization logic, often in a `static` block in your main class. It
      * should only be called once - an attempt to call it a second time will result in an error. If
-     * trying to set the global [OpenTelemetry] multiple times in tests, use
+     * trying to set the global [OpenTelemetry] multiple times in tests, useAndClose
      * [GlobalOpenTelemetry.resetForTest] between them.
      *
-     * If you are using the OpenTelemetry SDK, you should generally use
+     * If you are using the OpenTelemetry SDK, you should generally useAndClose
      * `OpenTelemetrySdk.builder().buildAndRegisterGlobal()` instead of calling this method
      * directly.
      */
@@ -72,7 +72,7 @@ object GlobalOpenTelemetry {
                 throw IllegalStateException(
                     "GlobalOpenTelemetry.set has already been called. GlobalOpenTelemetry.set must be " +
                         "called only once before any calls to GlobalOpenTelemetry.get. If you are using " +
-                        "the OpenTelemetrySdk, use OpenTelemetrySdkBuilder.buildAndRegisterGlobal " +
+                        "the OpenTelemetrySdk, useAndClose OpenTelemetrySdkBuilder.buildAndRegisterGlobal " +
                         "instead. Previous invocation set to cause of this exception.",
                     setGlobalCaller.value
                 )
@@ -151,7 +151,7 @@ object GlobalOpenTelemetry {
     /**
      * Static global instances are obfuscated when they are returned from the API to prevent users
      * from casting them to their SDK-specific implementation. For example, we do not want users to
-     * use patterns like `(OpenTelemetrySdk) GlobalOpenTelemetry.get()`.
+     * useAndClose patterns like `(OpenTelemetrySdk) GlobalOpenTelemetry.get()`.
      */
     internal class ObfuscatedOpenTelemetry(delegate: OpenTelemetry) : OpenTelemetry {
         private val delegate: OpenTelemetry

@@ -11,6 +11,9 @@ import io.opentelemetry.kotlin.sdk.trace.ReadableSpan
 import io.opentelemetry.kotlin.sdk.trace.SpanProcessor
 import io.opentelemetry.kotlin.sdk.trace.data.SpanData
 import kotlinx.atomicfu.atomic
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * An implementation of the [SpanProcessor] that converts the [ReadableSpan] to [ ] and passes it
@@ -40,9 +43,18 @@ internal constructor(private val spanExporter: SpanExporter, private val sampled
         if (sampled && !span.spanContext.isSampled()) {
             return
         }
+
         try {
             val spans: List<SpanData> = listOf(span.toSpanData())
-            val result: CompletableResultCode = spanExporter.export(spans)
+            val result = CompletableResultCode()
+            CoroutineScope(Dispatchers.Unconfined).launch {
+                try {
+                    spanExporter.export(spans)
+                    result.succeed()
+                } catch (e: Exception) {
+                    result.fail()
+                }
+            }.start()
             pendingExports.add(result)
             result.whenComplete {
                 pendingExports.remove(result)
@@ -66,13 +78,11 @@ internal constructor(private val spanExporter: SpanExporter, private val sampled
         val result = CompletableResultCode()
         val flushResult: CompletableResultCode = forceFlush()
         flushResult.whenComplete {
-            val shutdownResult: CompletableResultCode = spanExporter.shutdown()
-            shutdownResult.whenComplete {
-                if (!flushResult.isSuccess || !shutdownResult.isSuccess) {
-                    result.fail()
-                } else {
-                    result.succeed()
-                }
+            spanExporter.shutdown()
+            if (!flushResult.isSuccess) {
+                result.fail()
+            } else {
+                result.succeed()
             }
         }
         return result

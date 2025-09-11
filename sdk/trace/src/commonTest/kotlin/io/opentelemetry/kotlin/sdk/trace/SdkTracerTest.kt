@@ -6,11 +6,10 @@ package io.opentelemetry.kotlin.sdk.trace
 
 import io.kotest.matchers.shouldBe
 import io.opentelemetry.kotlin.context.Context
-import io.opentelemetry.kotlin.sdk.common.CompletableResultCode
 import io.opentelemetry.kotlin.sdk.common.InstrumentationLibraryInfo
 import io.opentelemetry.kotlin.sdk.trace.data.SpanData
 import io.opentelemetry.kotlin.sdk.trace.export.SpanExporter
-import io.opentelemetry.kotlin.use
+import io.opentelemetry.kotlin.useAndClose
 import kotlinx.atomicfu.atomic
 import kotlin.test.Test
 
@@ -45,6 +44,7 @@ internal class SdkTracerTest {
         var readableSpan = tracer.spanBuilder("  ").startSpan() as ReadableSpan
         readableSpan.name shouldBe SdkTracer.FALLBACK_SPAN_NAME
     }
+
     // TODO Fix stress test
     /*
         @Test
@@ -112,10 +112,10 @@ internal class SdkTracerTest {
 
     private class SimpleSpanOperation(private val tracer: SdkTracer) :
         StressTestRunner.OperationUpdater {
-        override fun update() {
+        override suspend fun update() {
             val span = tracer.spanBuilder("testSpan").startSpan()
             try {
-                span.makeCurrent().use { span.setAttribute("testAttribute", "testValue") }
+                span.makeCurrent().useAndClose { span.setAttribute("testAttribute", "testValue") }
             } finally {
                 span.end()
             }
@@ -125,18 +125,15 @@ internal class SdkTracerTest {
     private class CountingSpanExporter : SpanExporter {
         val numberOfSpansExported = atomic(0L)
 
-        override fun export(spans: Collection<SpanData>): CompletableResultCode {
+        override suspend fun export(spans: Collection<SpanData>) {
             numberOfSpansExported.addAndGet(spans.size.toLong())
-            return CompletableResultCode.ofSuccess()
         }
 
-        override fun flush(): CompletableResultCode {
-            return CompletableResultCode.ofSuccess()
+        override suspend fun flush() {
         }
 
-        override fun shutdown(): CompletableResultCode {
+        override suspend fun shutdown() {
             // no-op
-            return CompletableResultCode.ofSuccess()
         }
     }
 

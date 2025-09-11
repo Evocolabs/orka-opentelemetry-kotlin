@@ -5,13 +5,13 @@
 package io.opentelemetry.kotlin.api.internal
 
 /**
- * [ThreadLocal] buffers for use when creating new derived objects such as [String]s. These buffers
- * are reused within a single thread - it is _not safe_ to use the buffer to generate multiple
+ * [ThreadLocal] buffers for useAndClose when creating new derived objects such as [String]s. These buffers
+ * are reused within a single thread - it is _not safe_ to useAndClose the buffer to generate multiple
  * derived objects at the same time because the same memory will be used. In general, you should get
  * a temporary buffer, fill it with data, and finish by converting into the derived object within
  * the same method to avoid multiple usages of the same buffer.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 object TemporaryBuffers {

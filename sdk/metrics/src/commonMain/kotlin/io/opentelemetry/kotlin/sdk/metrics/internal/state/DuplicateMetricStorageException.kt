@@ -9,7 +9,7 @@ import io.opentelemetry.kotlin.sdk.metrics.internal.descriptor.MetricDescriptor
 /**
  * There are multiple metrics defined with the same name/identity.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class DuplicateMetricStorageException(

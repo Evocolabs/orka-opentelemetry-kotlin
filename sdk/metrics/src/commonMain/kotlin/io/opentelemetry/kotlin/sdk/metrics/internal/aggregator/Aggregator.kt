@@ -20,7 +20,7 @@ import io.opentelemetry.kotlin.sdk.resources.Resource
  * synchronously, and for asynchronous the [.accumulateDoubleMeasurement] or
  * [.accumulateLongMeasurement] will be used when reading values from the instrument callbacks.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 interface Aggregator<T> {

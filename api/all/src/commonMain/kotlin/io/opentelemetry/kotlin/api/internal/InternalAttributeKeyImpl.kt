@@ -10,7 +10,7 @@ import io.opentelemetry.kotlin.api.common.AttributeType
 /**
  * Default AttributeKey implementation which preencodes to UTF8 for OTLP export.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class InternalAttributeKeyImpl<T>

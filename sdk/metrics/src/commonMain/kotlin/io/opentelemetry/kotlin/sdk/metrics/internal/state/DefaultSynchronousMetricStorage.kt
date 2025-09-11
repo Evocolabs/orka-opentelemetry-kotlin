@@ -18,7 +18,7 @@ import io.opentelemetry.kotlin.sdk.resources.Resource
 /**
  * Stores aggregated [MetricData] for synchronous instruments.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class DefaultSynchronousMetricStorage<T>
@@ -32,7 +32,7 @@ internal constructor(
     private val temporalMetricStorage: TemporalMetricStorage<T> =
         TemporalMetricStorage<T>(aggregator, /* isSynchronous= */ true)
 
-    // This is a storage handle to use when the attributes processor requires
+    // This is a storage handle to useAndClose when the attributes processor requires
     private val lateBoundStorageHandle: BoundStorageHandle =
         object : BoundStorageHandle {
             override fun release() {}

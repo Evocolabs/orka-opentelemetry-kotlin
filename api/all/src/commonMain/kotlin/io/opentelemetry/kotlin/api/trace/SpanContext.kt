@@ -17,7 +17,7 @@ import io.opentelemetry.kotlin.api.internal.OtelEncodingUtils
  * Implementations of this interface *must* be immutable and have well-defined value-based
  * equals/hashCode implementations. If an implementation does not strictly conform to these
  * requirements, behavior of the OpenTelemetry APIs and default SDK cannot be guaranteed. It is
- * strongly suggested that you use the implementation that is provided here via [ ][.create] or
+ * strongly suggested that you useAndClose the implementation that is provided here via [ ][.create] or
  * [.createFromRemoteParent].
  */
 interface SpanContext {

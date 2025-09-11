@@ -9,7 +9,7 @@ import io.opentelemetry.kotlin.sdk.metrics.data.AggregationTemporality
 import io.opentelemetry.kotlin.sdk.metrics.data.MetricData
 
 /**
- * `MetricExporter` is the interface that all "push based" metric libraries should use to export
+ * `MetricExporter` is the interface that all "push based" metric libraries should useAndClose to export
  * metrics to the OpenTelemetry exporters.
  *
  * All OpenTelemetry exporters should allow access to a `MetricExporter` instance.

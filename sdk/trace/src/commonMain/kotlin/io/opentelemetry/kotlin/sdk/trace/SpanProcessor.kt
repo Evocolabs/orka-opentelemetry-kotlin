@@ -72,7 +72,7 @@ interface SpanProcessor : Closeable {
     /**
      * Closes this [SpanProcessor] after processing any remaining spans, releasing any resources.
      */
-    override fun close() {
+    override suspend fun close() {
         shutdown()
     }
 

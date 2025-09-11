@@ -244,7 +244,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     /**
      * Serializes a protobuf `string` field. `string` is the value to be serialized and
      * `utf8Length` is the length of the string after it is encoded in UTF8. This method reads
-     * elements from context, use together with [ ][StatelessMarshalerUtil.sizeStringWithContext].
+     * elements from context, useAndClose together with [ ][StatelessMarshalerUtil.sizeStringWithContext].
      */
 
     fun serializeStringWithContext(
@@ -301,7 +301,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     }
 
     /**
-     * Serializes a protobuf embedded `message`. This method adds elements to context, use
+     * Serializes a protobuf embedded `message`. This method adds elements to context, useAndClose
      * together with [StatelessMarshalerUtil.sizeMessageWithContext].
      */
     fun <T> serializeMessageWithContext(
@@ -316,7 +316,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     }
 
     /**
-     * Serializes a protobuf embedded `message`. This method adds elements to context, use
+     * Serializes a protobuf embedded `message`. This method adds elements to context, useAndClose
      * together with [StatelessMarshalerUtil.sizeMessageWithContext].
      */
     fun <K, V> serializeMessageWithContext(
@@ -468,7 +468,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
         field: ProtoFieldInfo, repeatedMessage: MutableList<out Marshaler>)
 
     /**
-     * Serializes `repeated message` field. This method reads elements from context, use
+     * Serializes `repeated message` field. This method reads elements from context, useAndClose
      * together with [StatelessMarshalerUtil.sizeRepeatedMessageWithContext].
      */
     abstract fun <T> serializeRepeatedMessageWithContext(
@@ -479,7 +479,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     )
 
     /**
-     * Serializes `repeated message` field. This method reads elements from context, use
+     * Serializes `repeated message` field. This method reads elements from context, useAndClose
      * together with [StatelessMarshalerUtil.sizeRepeatedMessageWithContext].
      */
     
@@ -508,7 +508,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     }
 
     /**
-     * Serializes `repeated message` field. This method reads elements from context, use
+     * Serializes `repeated message` field. This method reads elements from context, useAndClose
      * together with [StatelessMarshalerUtil.sizeRepeatedMessageWithContext].
      */
     
@@ -530,7 +530,7 @@ abstract class Serializer internal constructor() : AutoCloseable {
     }
 
     /**
-     * Serializes `repeated message` field. This method reads elements from context, use
+     * Serializes `repeated message` field. This method reads elements from context, useAndClose
      * together with [StatelessMarshalerUtil.sizeRepeatedMessageWithContext].
      */
     

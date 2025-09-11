@@ -42,7 +42,7 @@ object ResourceAttributes {
     val CLOUD_AVAILABILITY_ZONE: AttributeKey<String> = stringKey("cloud.availability_zone")
 
     /**
-     * The cloud platform in use.
+     * The cloud platform in useAndClose.
      *
      * Notes:
      *
@@ -213,10 +213,10 @@ object ResourceAttributes {
      *
      * Notes:
      *
-     * * Depending on the cloud provider, use:
+     * * Depending on the cloud provider, useAndClose:
      * * **AWS Lambda:** The function
      * [ARN](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
-     * * Take care not to use the &quot;invoked ARN&quot; directly but replace any
+     * * Take care not to useAndClose the &quot;invoked ARN&quot; directly but replace any
      * [alias
      * suffix](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html)
      * with the resolved function version, as the same runtime instance may be invokable with
@@ -238,7 +238,7 @@ object ResourceAttributes {
      *
      * Notes:
      *
-     * * Depending on the cloud provider and platform, use:
+     * * Depending on the cloud provider and platform, useAndClose:
      * * **AWS Lambda:** The
      * [function
      * version](https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html)
@@ -401,7 +401,7 @@ object ResourceAttributes {
     /**
      * The full command used to launch the process as a single string representing the full command.
      * On Windows, can be set to the result of `GetCommandLineW`. Do not set this if you have to
-     * assemble it just for monitoring; use `process.command_args` instead.
+     * assemble it just for monitoring; useAndClose `process.command_args` instead.
      */
     val PROCESS_COMMAND_LINE: AttributeKey<String> = stringKey("process.command_line")
 
@@ -472,7 +472,7 @@ object ResourceAttributes {
      * acceptable that the ID is ephemeral and changes during important lifetime events for the
      * service (e.g. service restarts). If the service has no inherent unique ID that can be used as
      * the value of this attribute it is recommended to generate a random Version 1 or Version 4 RFC
-     * 4122 UUID (services aiming for reproducible UUIDs may also use Version 5, see RFC 4122 for
+     * 4122 UUID (services aiming for reproducible UUIDs may also useAndClose Version 5, see RFC 4122 for
      * more recommendations).
      */
     val SERVICE_INSTANCE_ID: AttributeKey<String> = stringKey("service.instance.id")

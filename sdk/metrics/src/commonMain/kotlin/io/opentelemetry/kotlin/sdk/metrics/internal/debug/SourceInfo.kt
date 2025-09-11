@@ -7,7 +7,7 @@ package io.opentelemetry.kotlin.sdk.metrics.internal.debug
 /**
  * An interface that can be used to record the (runtime) source of registered metrics in the sdk.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 interface SourceInfo {

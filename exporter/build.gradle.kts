@@ -1,6 +1,7 @@
 plugins {
     id("mpplib")
     kotlin("plugin.serialization")
+    id("com.squareup.wire") version "5.4.0"
 }
 
 kotlin {
@@ -15,6 +16,11 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:atomicfu:0.25.0")
                 implementation(libs.kotlinx.io.core)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.protobuf)
+                implementation(libs.wire.runtime)
+                implementation(libs.wire.grpc.client)
+                implementation(libs.jetbrains.kotlinx.coroutines.core)
             }
         }
 
@@ -26,14 +32,18 @@ kotlin {
             implementation(libs.ktor.client.darwin)
         }
 
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.bundles.kotlin.test)
+        commonTest.dependencies {
+            implementation(project(":sdk:testing"))
 
-                implementation(libs.jetbrains.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.mock)
 
-                implementation(libs.kotest.assertions.core)
-            }
+            implementation(libs.bundles.kotlin.test)
+
+            implementation(libs.jetbrains.kotlinx.coroutines.core)
+
+            implementation(libs.jetbrains.kotlinx.coroutines.test)
+
+            implementation(libs.kotest.assertions.core)
         }
 
         val nativeMain by creating { dependsOn(commonMain) }
@@ -52,5 +62,14 @@ kotlin {
                 }
             }
         }
+    }
+}
+
+wire {
+    sourcePath {
+        srcDir("src/commonMain/proto")
+    }
+    kotlin {
+        rpcRole = "client"
     }
 }

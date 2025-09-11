@@ -16,7 +16,7 @@ import io.opentelemetry.kotlin.sdk.resources.Resource
 /**
  * A "null object" Aggregator which denotes no aggregation should occur.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 class EmptyAggregator private constructor() :

@@ -632,7 +632,7 @@ object SemanticAttributes {
     val MESSAGING_CONVERSATION_ID: AttributeKey<String> = stringKey("messaging.conversation_id")
 
     /**
-     * The (uncompressed) size of the message payload in bytes. Also use this attribute if it is
+     * The (uncompressed) size of the message payload in bytes. Also useAndClose this attribute if it is
      * unknown whether the compressed or uncompressed payload size is reported.
      */
     val MESSAGING_MESSAGE_PAYLOAD_SIZE_BYTES: AttributeKey<Long> =

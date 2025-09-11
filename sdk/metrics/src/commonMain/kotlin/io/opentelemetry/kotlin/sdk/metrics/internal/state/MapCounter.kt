@@ -12,7 +12,7 @@ import kotlinx.collections.immutable.persistentMapOf
  * Simple-as-possible backing structure for exponential histogram buckets. Can be used as a baseline
  * against other data structures.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time
  */
 class MapCounter : ExponentialCounter {

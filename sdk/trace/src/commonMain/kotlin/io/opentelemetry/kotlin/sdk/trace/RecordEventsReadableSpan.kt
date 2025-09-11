@@ -221,7 +221,6 @@ private constructor(
     }
 
     private fun endInternal(endEpochNanos: Long) {
-        println("end(timestamp: Long, unit: DateTimeUnit): ${endEpochNanos} start: ${startEpochNanos}")
         if (hasEnded()) {
             // logger.log(java.util.logging.Level.FINE, "Calling end() on an ended Span.")
             return
@@ -345,7 +344,7 @@ private constructor(
                 if (userStartEpochNanos != 0L) {
                     userStartEpochNanos
                 } else if (createdAnchoredClock) {
-                    // If this is a new AnchoredClock, the start time is now, so just use it to
+                    // If this is a new AnchoredClock, the start time is now, so just useAndClose it to
                     // avoid
                     // recomputing current time.
                     clock.startTime()

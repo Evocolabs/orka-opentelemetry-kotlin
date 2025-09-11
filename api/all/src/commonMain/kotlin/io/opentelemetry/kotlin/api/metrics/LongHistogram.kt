@@ -12,7 +12,7 @@ interface LongHistogram {
     /**
      * Records a value.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The amount of the measurement.
      */
@@ -21,7 +21,7 @@ interface LongHistogram {
     /**
      * Records a value with a set of attributes.
      *
-     * Note: This may use `Context.current()` to pull the context associated with this measurement.
+     * Note: This may useAndClose `Context.current()` to pull the context associated with this measurement.
      *
      * @param value The amount of the measurement.
      * @param attributes A set of attributes to associate with the count.
@@ -38,7 +38,7 @@ interface LongHistogram {
     fun record(value: Long, attributes: Attributes, context: Context)
 
     /**
-     * Construct a bound version of this instrument where all recorded values use the given
+     * Construct a bound version of this instrument where all recorded values useAndClose the given
      * attributes.
      */
     fun bind(attributes: Attributes): BoundLongHistogram

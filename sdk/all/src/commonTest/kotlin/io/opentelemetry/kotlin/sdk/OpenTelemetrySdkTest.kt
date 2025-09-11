@@ -245,15 +245,15 @@ internal class OpenTelemetrySdkTest {
             }
         val SPAN_EXPORTER =
             object : SpanExporter {
-                override fun export(spans: Collection<SpanData>): CompletableResultCode {
+                override suspend fun export(spans: Collection<SpanData>) {
                     TODO("Not yet implemented")
                 }
 
-                override fun flush(): CompletableResultCode {
+                override suspend fun flush() {
                     TODO("Not yet implemented")
                 }
 
-                override fun shutdown(): CompletableResultCode {
+                override suspend fun shutdown() {
                     TODO("Not yet implemented")
                 }
             }

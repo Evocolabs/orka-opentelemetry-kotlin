@@ -252,12 +252,11 @@ class ProtoSerializer(output: Sink) : Serializer() {
     }
 
     companion object {
-        // Cache ID conversion to bytes since we know it's common to use the same ID multiple times within
+        // Cache ID conversion to bytes since we know it's common to useAndClose the same ID multiple times within
         // a single export (trace ID and parent span ID).
         // In practice, there is often only one thread that calls this code in the BatchSpanProcessor so
         // reusing buffers for the thread is almost free. Even with multiple threads, it should still be
         // worth it and is common practice in serialization libraries such as Jackson.
-        @ThreadLocal
         private val ID_CACHE: MutableMap<String, ByteArray> = mutableMapOf()
     }
 }

@@ -7,7 +7,7 @@
  * Copyright 2015 The gRPC Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ * you may not useAndClose this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
@@ -36,7 +36,7 @@ package io.opentelemetry.kotlin.context
  * <pre>`Context withCredential = Context.current().with(CRED_KEY, cred); withCredential.wrap(new
  * Runnable() { public void run() { readUserRecords(userId, CRED_KEY.get()); } }).run(); `</pre> *
  *
- * Notes and cautions on use:
+ * Notes and cautions on useAndClose:
  *
  * * Every [.makeCurrent] must be followed by a [Scope.close]. Breaking these rules may lead to
  * memory leaks and incorrect scoping.
@@ -54,7 +54,7 @@ package io.opentelemetry.kotlin.context
  * they are not garbage collected before being closed. This is done with some relatively expensive
  * stack trace walking. It is highly recommended to enable this in unit tests and staging
  * environments, and you may consider enabling it in production if you have the CPU budget or have
- * very strict requirements on context being propagated correctly (i.e., because you use context in
+ * very strict requirements on context being propagated correctly (i.e., because you useAndClose context in
  * a multi-tenant system). For kotlin coroutine users, this will also detect invalid usage of [
  * ][.makeCurrent] from coroutines and suspending functions. This detection relies on internal APIs
  * of kotlin coroutines and may not function across all versions - let us know if you find a version
@@ -118,11 +118,11 @@ interface Context {
      * the scope of execution this context is current for. [Context.current] will return this
      * [Context] until [Scope.close] is called. [Scope.close] must be called to properly restore the
      * previous context from before this scope of execution or context will not work correctly. It
-     * is recommended to use try-with-resources to call [ ][Scope.close] automatically.
+     * is recommended to useAndClose try-with-resources to call [ ][Scope.close] automatically.
      *
      * The default implementation of this method will store the [Context] in a [ ]. Kotlin coroutine
-     * users SHOULD NOT use this method as the [ThreadLocal] will not be properly synced across
-     * coroutine suspension and resumption. Instead, use `withContext(context.asContextElement())`
+     * users SHOULD NOT useAndClose this method as the [ThreadLocal] will not be properly synced across
+     * coroutine suspension and resumption. Instead, useAndClose `withContext(context.asContextElement())`
      * provided by the `opentelemetry-extension-kotlin` library.
      *
      * <pre>`Context prevCtx = Context.current(); try (Scope ignored = ctx.makeCurrent()) { assert
@@ -145,8 +145,8 @@ interface Context {
         /**
          * Returns the root [Context] which all other [Context] are derived from.
          *
-         * It should generally not be required to use the root [Context] directly - instead, use
-         * [Context.current] to operate on the current [Context]. Only use this method if you are
+         * It should generally not be required to useAndClose the root [Context] directly - instead, useAndClose
+         * [Context.current] to operate on the current [Context]. Only useAndClose this method if you are
          * absolutely sure you need to disregard the current [Context]
          * - this almost always is only a workaround hiding an underlying context propagation issue.
          */

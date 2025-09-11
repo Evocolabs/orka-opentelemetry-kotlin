@@ -8,16 +8,13 @@ import io.opentelemetry.kotlin.sdk.common.CompletableResultCode
 import io.opentelemetry.kotlin.sdk.trace.data.SpanData
 
 internal class NoopSpanExporter : SpanExporter {
-    override fun export(spans: Collection<SpanData>): CompletableResultCode {
-        return CompletableResultCode.ofSuccess()
+    override suspend fun export(spans: Collection<SpanData>) {
     }
 
-    override fun flush(): CompletableResultCode {
-        return CompletableResultCode.ofSuccess()
+    override suspend fun flush() {
     }
 
-    override fun shutdown(): CompletableResultCode {
-        return CompletableResultCode.ofSuccess()
+    override suspend fun shutdown() {
     }
 
     companion object {

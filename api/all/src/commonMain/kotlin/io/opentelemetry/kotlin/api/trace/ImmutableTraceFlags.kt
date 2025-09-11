@@ -50,7 +50,7 @@ internal class ImmutableTraceFlags private constructor(byteRep: Byte) : TraceFla
 
         // Implementation of the TraceFlags.fromByte().
         fun fromByte(traceFlagsByte: Byte): ImmutableTraceFlags {
-            // Equivalent with Byte.toUnsignedInt(), but cannot use it because of Android.
+            // Equivalent with Byte.toUnsignedInt(), but cannot useAndClose it because of Android.
             return INSTANCES[traceFlagsByte.toInt() and 255]
         }
 

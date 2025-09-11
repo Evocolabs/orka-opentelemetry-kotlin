@@ -13,7 +13,7 @@ import kotlin.reflect.cast
  * for objects that can be reused between marshalling attempts.
  *
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change
  * at any time.
  */
 class MarshalerContext(
@@ -182,7 +182,7 @@ class MarshalerContext(
     }
 
     /**
-     * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+     * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
      * any time.
      */
     class Key {

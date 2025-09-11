@@ -27,7 +27,7 @@ interface Span : ImplicitContextKeyed {
      * If a null or empty String `value` is passed in, the behavior is undefined, and hence strongly
      * discouraged.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -42,7 +42,7 @@ interface Span : ImplicitContextKeyed {
      * Sets an attribute to the `Span`. If the `Span` previously contained a mapping for the key,
      * the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -57,7 +57,7 @@ interface Span : ImplicitContextKeyed {
      * Sets an attribute to the `Span`. If the `Span` previously contained a mapping for the key,
      * the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -72,7 +72,7 @@ interface Span : ImplicitContextKeyed {
      * Sets an attribute to the `Span`. If the `Span` previously contained a mapping for the key,
      * the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -141,7 +141,7 @@ interface Span : ImplicitContextKeyed {
      * `timestamp` is not the same as [System.nanoTime] but may be computed using it, for example,
      * by taking a difference of readings from [System.nanoTime] and adding to the span start time.
      *
-     * When possible, it is preferred to use [.addEvent] at the time the event occurred.
+     * When possible, it is preferred to useAndClose [.addEvent] at the time the event occurred.
      *
      * @param name the name of the event.
      * @param timestamp the explicit event timestamp since epoch.
@@ -157,7 +157,7 @@ interface Span : ImplicitContextKeyed {
      * `timestamp` is not the same as [System.nanoTime] but may be computed using it, for example,
      * by taking a difference of readings from [System.nanoTime] and adding to the span start time.
      *
-     * When possible, it is preferred to use [.addEvent] at the time the event occurred.
+     * When possible, it is preferred to useAndClose [.addEvent] at the time the event occurred.
      *
      * @param name the name of the event.
      * @param timestamp the explicit event timestamp since epoch.
@@ -183,7 +183,7 @@ interface Span : ImplicitContextKeyed {
      * `timestamp` is not the same as [System.nanoTime] but may be computed using it, for example,
      * by taking a difference of readings from [System.nanoTime] and adding to the span start time.
      *
-     * When possible, it is preferred to use [.addEvent] at the time the event occurred.
+     * When possible, it is preferred to useAndClose [.addEvent] at the time the event occurred.
      *
      * @param name the name of the event.
      * @param attributes the attributes that will be added; these are associated with this event,
@@ -199,7 +199,7 @@ interface Span : ImplicitContextKeyed {
      * `timestamp` is not the same as [System.nanoTime] but may be computed using it, for example,
      * by taking a difference of readings from [System.nanoTime] and adding to the span start time.
      *
-     * When possible, it is preferred to use [.addEvent] at the time the event occurred.
+     * When possible, it is preferred to useAndClose [.addEvent] at the time the event occurred.
      *
      * @param name the name of the event.
      * @param attributes the attributes that will be added; these are associated with this event,
@@ -294,7 +294,7 @@ interface Span : ImplicitContextKeyed {
      * implementations are free to ignore all further calls.
      *
      * Use this method for specifying explicit end options, such as end `Timestamp`. When no
-     * explicit values are required, use [.end].
+     * explicit values are required, useAndClose [.end].
      *
      * @param timestamp the explicit timestamp from the epoch, for this `Span`. `0` indicates
      * current time should be used.
@@ -309,7 +309,7 @@ interface Span : ImplicitContextKeyed {
      * implementations are free to ignore all further calls.
      *
      * Use this method for specifying explicit end options, such as end `Timestamp`. When no
-     * explicit values are required, use [.end].
+     * explicit values are required, useAndClose [.end].
      *
      * @param timestamp the explicit timestamp from the epoch, for this `Span`. `0` indicates
      * current time should be used.

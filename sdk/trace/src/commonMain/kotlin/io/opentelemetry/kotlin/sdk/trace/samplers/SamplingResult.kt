@@ -42,7 +42,7 @@ interface SamplingResult {
          * Returns a [SamplingResult] with no attributes and [SamplingResult.getDecision] returning
          * `decision`.
          *
-         * This is meant for use by custom [Sampler] implementations.
+         * This is meant for useAndClose by custom [Sampler] implementations.
          *
          * Use [.create] if you need attributes.
          *
@@ -64,7 +64,7 @@ interface SamplingResult {
          * Returns a [SamplingResult] with the given `attributes` and [ ]
          * [SamplingResult.getDecision] returning `decision`.
          *
-         * This is meant for use by custom [Sampler] implementations.
+         * This is meant for useAndClose by custom [Sampler] implementations.
          *
          * Using [.create] instead of this method is slightly faster and shorter if you don't need
          * attributes.
@@ -84,7 +84,7 @@ interface SamplingResult {
          * Returns a [SamplingResult] corresponding to [SamplingDecision.RECORD_AND_SAMPLE] with no
          * attributes.
          *
-         * This is meant for use by custom [Sampler] implementations and is equivalent to calling
+         * This is meant for useAndClose by custom [Sampler] implementations and is equivalent to calling
          * `SamplingResult.create(SamplingDecision.RECORD_AND_SAMPLE)`.
          *
          * @return A "record and sample" [SamplingResult] with empty attributes.
@@ -97,7 +97,7 @@ interface SamplingResult {
          * Returns a [SamplingResult] corresponding to [SamplingDecision.RECORD_ONLY] with no
          * attributes.
          *
-         * This is meant for use by custom [Sampler] implementations and is equivalent to calling
+         * This is meant for useAndClose by custom [Sampler] implementations and is equivalent to calling
          * `SamplingResult.create(SamplingDecision.RECORD_ONLY)`.
          *
          * @return A "record only" [SamplingResult] with empty attributes.
@@ -109,7 +109,7 @@ interface SamplingResult {
         /**
          * Returns a [SamplingResult] corresponding to [SamplingDecision.DROP] with no attributes.
          *
-         * This is meant for use by custom [Sampler] implementations and is equivalent to calling
+         * This is meant for useAndClose by custom [Sampler] implementations and is equivalent to calling
          * `SamplingResult.create(SamplingDecision.DROP)`.
          *
          * @return A "drop" [SamplingResult] with empty attributes.

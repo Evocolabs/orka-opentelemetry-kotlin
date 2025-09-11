@@ -30,7 +30,7 @@ internal constructor(
      *
      * Static global providers are obfuscated when they are returned from the API to prevent users
      * from casting them to their SDK specific implementation. For example, we do not want users to
-     * use patterns like `(TracerSdkProvider) OpenTelemetry.getGlobalTracerProvider()`.
+     * useAndClose patterns like `(TracerSdkProvider) OpenTelemetry.getGlobalTracerProvider()`.
      */
     internal class ObfuscatedTracerProvider(private val delegate: SdkTracerProvider) :
         TracerProvider {

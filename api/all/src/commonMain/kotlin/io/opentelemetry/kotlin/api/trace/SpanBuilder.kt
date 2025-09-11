@@ -68,7 +68,7 @@ import kotlinx.datetime.Instant
  */
 interface SpanBuilder {
     /**
-     * Sets the parent to use from the specified `Context`. If not set, the value of
+     * Sets the parent to useAndClose from the specified `Context`. If not set, the value of
      * `Span.current()` at [.startSpan] time will be used as parent.
      *
      * If no [Span] is available in the specified `Context`, the resulting `Span` will become a root
@@ -128,7 +128,7 @@ interface SpanBuilder {
      * If a null or empty String `value` is passed in, the behavior is undefined, and hence strongly
      * discouraged.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -141,7 +141,7 @@ interface SpanBuilder {
      * Sets an attribute to the newly created `Span`. If `SpanBuilder` previously contained a
      * mapping for the key, the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -154,7 +154,7 @@ interface SpanBuilder {
      * Sets an attribute to the newly created `Span`. If `SpanBuilder` previously contained a
      * mapping for the key, the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -167,7 +167,7 @@ interface SpanBuilder {
      * Sets an attribute to the newly created `Span`. If `SpanBuilder` previously contained a
      * mapping for the key, the old value is replaced by the specified value.
      *
-     * Note: It is strongly recommended to use [.setAttribute], and pre-allocate your keys, if
+     * Note: It is strongly recommended to useAndClose [.setAttribute], and pre-allocate your keys, if
      * possible.
      *
      * @param key the key for this attribute.
@@ -220,7 +220,7 @@ interface SpanBuilder {
      * Sets an explicit start timestamp for the newly created `Span`.
      *
      * LIRInstruction.Use this method to specify an explicit start timestamp. If not called, the
-     * implementation will use the timestamp value at [.startSpan] time, which should be the default
+     * implementation will useAndClose the timestamp value at [.startSpan] time, which should be the default
      * case.
      *
      * Important this is NOT equivalent with System.nanoTime().
@@ -236,7 +236,7 @@ interface SpanBuilder {
      * Sets an explicit start timestamp for the newly created `Span`.
      *
      * Use this method to specify an explicit start timestamp. If not called, the implementation
-     * will use the timestamp value at [.startSpan] time, which should be the default case.
+     * will useAndClose the timestamp value at [.startSpan] time, which should be the default case.
      *
      * Important this is NOT equivalent with System.nanoTime().
      *

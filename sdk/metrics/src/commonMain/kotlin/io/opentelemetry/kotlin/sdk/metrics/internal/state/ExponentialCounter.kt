@@ -7,9 +7,9 @@ package io.opentelemetry.kotlin.sdk.metrics.internal.state
 import kotlin.js.JsName
 
 /**
- * Interface for use as backing data structure for exponential histogram buckets.
+ * Interface for useAndClose as backing data structure for exponential histogram buckets.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 interface ExponentialCounter {

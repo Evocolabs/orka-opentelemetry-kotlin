@@ -15,7 +15,7 @@ import kotlin.math.min
 /**
  * Aggregator that produces summary metrics.
  *
- * This class is internal and is hence not for public use. Its APIs are unstable and can change at
+ * This class is internal and is hence not for public useAndClose. Its APIs are unstable and can change at
  * any time.
  */
 internal class DoubleMinMaxSumCountAggregator(
@@ -30,7 +30,7 @@ internal class DoubleMinMaxSumCountAggregator(
         AggregatorHandle<MinMaxSumCountAccumulation>(exemplarReservoir) {
 
         // The current value. This controls its own internal thread-safety via method access. Don't
-        // try to use its fields directly.
+        // try to useAndClose its fields directly.
         private val current = atomic(DoubleState())
 
         override fun doAccumulateThenReset(

@@ -16,7 +16,7 @@ class ArrayBasedContextStorage : ContextStorage {
     }
 
     private class ContextScope(private val reset: () -> Unit) : Scope {
-        override fun close() {
+        override suspend fun close() {
             reset()
         }
     }

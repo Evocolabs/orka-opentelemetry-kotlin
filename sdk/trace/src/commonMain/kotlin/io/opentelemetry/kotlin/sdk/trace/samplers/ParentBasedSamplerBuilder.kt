@@ -12,7 +12,7 @@ class ParentBasedSamplerBuilder internal constructor(private val root: Sampler) 
     private var localParentNotSampled: Sampler? = null
 
     /**
-     * Sets the [Sampler] to use when there is a remote parent that was sampled. If not set,
+     * Sets the [Sampler] to useAndClose when there is a remote parent that was sampled. If not set,
      * defaults to always sampling if the remote parent was sampled.
      *
      * @return this Builder
@@ -23,7 +23,7 @@ class ParentBasedSamplerBuilder internal constructor(private val root: Sampler) 
     }
 
     /**
-     * Sets the [Sampler] to use when there is a remote parent that was not sampled. If not set,
+     * Sets the [Sampler] to useAndClose when there is a remote parent that was not sampled. If not set,
      * defaults to never sampling when the remote parent isn't sampled.
      *
      * @return this Builder
@@ -34,7 +34,7 @@ class ParentBasedSamplerBuilder internal constructor(private val root: Sampler) 
     }
 
     /**
-     * Sets the [Sampler] to use when there is a local parent that was sampled. If not set, defaults
+     * Sets the [Sampler] to useAndClose when there is a local parent that was sampled. If not set, defaults
      * to always sampling if the local parent was sampled.
      *
      * @return this Builder
@@ -45,7 +45,7 @@ class ParentBasedSamplerBuilder internal constructor(private val root: Sampler) 
     }
 
     /**
-     * Sets the [Sampler] to use when there is a local parent that was not sampled. If not set,
+     * Sets the [Sampler] to useAndClose when there is a local parent that was not sampled. If not set,
      * defaults to never sampling when the local parent isn't sampled.
      *
      * @return this Builder
