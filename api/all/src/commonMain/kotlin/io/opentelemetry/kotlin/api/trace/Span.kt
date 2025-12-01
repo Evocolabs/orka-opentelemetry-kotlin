@@ -11,6 +11,7 @@ import io.opentelemetry.kotlin.context.Context
 import io.opentelemetry.kotlin.context.ImplicitContextKeyed
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
+import kotlin.coroutines.coroutineContext
 
 /**
  * An interface that represents a span. It has an associated [SpanContext].

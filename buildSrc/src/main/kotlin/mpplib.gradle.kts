@@ -8,6 +8,8 @@ val ideaActive = System.getProperty("idea.active") == "true"
 val compileNative = findProperty("compileNative") == "true"
 
 kotlin {
+    jvm()
+
     androidTarget {
         publishLibraryVariants("release", "debug")
             compilerOptions {

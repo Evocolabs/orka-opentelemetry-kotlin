@@ -371,7 +371,6 @@ private constructor(
             // Call onStart here instead of calling in the constructor to make sure the span is
             // completely
             // initialized.
-            println("startEpochNanos: ${startEpochNanos}")
             spanProcessor.onStart(parentContext, span)
             return span
         }

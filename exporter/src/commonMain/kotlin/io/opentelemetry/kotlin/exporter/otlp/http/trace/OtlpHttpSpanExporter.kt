@@ -32,6 +32,7 @@ class OtlpHttpSpanExporter(
 
             setBody(encoded.encode())
         }
+
         if (response.status.value in 200 until 300) {
             return
         } else {

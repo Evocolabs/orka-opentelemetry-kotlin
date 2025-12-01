@@ -6,22 +6,19 @@ import io.opentelemetry.kotlin.api.trace.SpanKind
 import io.opentelemetry.kotlin.api.trace.Tracer
 import io.opentelemetry.kotlin.context.Context
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
 
-suspend fun <T> Span.use(block: suspend (Span) -> T): T {
+suspend inline fun <T> Span.use(crossinline block: suspend (Span) -> T): T {
     try {
         val parentSpan = this
-        val parentContext = Context.current().with(this)
-        val result = withContext(parentContext.asContextElement()) {
-            return@withContext block(parentSpan)
+        val otelContext = coroutineContext.getOpenTelemetryContext()
+        return withContext( otelContext.with(this).asContextElement()) {
+            block(parentSpan)
         }
-        return result
     } finally {
         this.end()
     }
 }
-
 
 suspend fun <T> Tracer.span(
     name: String,
@@ -31,7 +28,9 @@ suspend fun <T> Tracer.span(
 ): T =
     spanBuilder(name)
         .setParent(coroutineContext.getOpenTelemetryContext())
-        .apply { spanKind?.let { setSpanKind(it) } }
-        .apply { attributes?.let { setAllAttributes(it) } }
+        .apply {
+            spanKind?.let { setSpanKind(it) }
+            attributes?.let { setAllAttributes(it) }
+        }
         .startSpan()
         .use(block)

@@ -94,7 +94,7 @@ abstract class Resource internal constructor() {
             create(
                 Attributes.builder()
                     .put(TELEMETRY_SDK_NAME, "opentelemetry")
-                    .put(TELEMETRY_SDK_LANGUAGE, "java")
+                    .put(TELEMETRY_SDK_LANGUAGE, "kotlin")
                     .put(TELEMETRY_SDK_VERSION, readVersion())
                     .build()
             )
@@ -104,7 +104,7 @@ abstract class Resource internal constructor() {
          * they are not provided by the Resource that is given to an SDK signal provider.
          */
         private val MANDATORY: Resource =
-            create(Attributes.of(SERVICE_NAME, "unknown_service:java"))
+            create(Attributes.of(SERVICE_NAME, "unknown_service:kotlin"))
 
         /**
          * Returns the default [Resource]. This resource contains the default attributes provided by

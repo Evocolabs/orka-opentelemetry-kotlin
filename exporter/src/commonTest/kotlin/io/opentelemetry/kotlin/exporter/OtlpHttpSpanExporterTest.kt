@@ -17,6 +17,8 @@ import io.ktor.content.ByteArrayContent
 import io.ktor.http.ContentType
 import io.ktor.http.cio.Request
 import io.ktor.serialization.kotlinx.protobuf.protobuf
+import io.opentelemetry.kotlin.api.common.AttributeKey
+import io.opentelemetry.kotlin.api.common.Attributes
 import io.opentelemetry.kotlin.api.trace.SpanContext
 import io.opentelemetry.kotlin.api.trace.SpanKind
 import io.opentelemetry.kotlin.api.trace.TraceFlags
@@ -24,6 +26,9 @@ import io.opentelemetry.kotlin.api.trace.TraceState
 import io.opentelemetry.kotlin.api.trace.TracerProvider
 import io.opentelemetry.kotlin.exporter.common.encode
 import io.opentelemetry.kotlin.exporter.otlp.http.trace.OtlpHttpSpanExporter
+import io.opentelemetry.kotlin.sdk.common.InstrumentationLibraryInfo
+import io.opentelemetry.kotlin.sdk.common.SystemClock
+import io.opentelemetry.kotlin.sdk.resources.Resource
 import io.opentelemetry.kotlin.sdk.testing.trace.TestSpanData
 import io.opentelemetry.kotlin.sdk.trace.SdkTracerProvider
 import io.opentelemetry.kotlin.sdk.trace.SdkTracerProviderBuilder
@@ -38,6 +43,7 @@ import okio.ByteString.Companion.decodeHex
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.currentTime
 
 class OtlpHttpSpanExporterTest {
 
@@ -63,6 +69,7 @@ class OtlpHttpSpanExporterTest {
 
             val exporter = OtlpHttpSpanExporter
                 .builder()
+                .setEndpoint("https://otelcollector.hiorka.com")
 //                .setHttpClient(mockClient)
                 .build()
             val name = "TestSpan"
@@ -77,6 +84,10 @@ class OtlpHttpSpanExporterTest {
                     .builder()
                     .setName(name)
                     .setKind(spanKind)
+                    .setTotalAttributeCount(1)
+                    .setInstrumentationLibraryInfo(InstrumentationLibraryInfo.create("io.opentelemetry.kotlin", "0.0.1"))
+                    .setStartEpochNanos(SystemClock.instance.now())
+                    .setEndEpochNanos(SystemClock.instance.now() + 1.seconds.inWholeNanoseconds)
                     .setSpanContext(
                         SpanContext.create(
                             traceIdHex = traceId,
@@ -85,6 +96,8 @@ class OtlpHttpSpanExporterTest {
                             traceState = traceState
                         )
                     )
+                    .setAttributes(Attributes.of(AttributeKey.stringKey("device.name"), "奥卡一号"))
+                    .setResource(Resource.default)
                     .build()
 
             exporter.export(mutableListOf(spanData))
