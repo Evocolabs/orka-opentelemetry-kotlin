@@ -1,29 +1,15 @@
 package io.opentelemetry.kotlin.sdk.extension
 
 import io.kotest.matchers.shouldBe
-import io.opentelemetry.kotlin.api.trace.Span
 import io.opentelemetry.kotlin.extension.trace.getOpenTelemetryContext
 import io.opentelemetry.kotlin.extension.trace.span
 import io.opentelemetry.kotlin.sdk.testing.time.TestClock
 import io.opentelemetry.kotlin.sdk.trace.SdkTracerProvider
-import io.opentelemetry.kotlin.sdk.trace.export.SimpleSpanProcessor
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Runnable
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestCoroutineScheduler
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
-import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
-import kotlin.time.Duration.Companion.seconds
 
-    @OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun testDerivingSpan() {
         val clock = TestClock.create()

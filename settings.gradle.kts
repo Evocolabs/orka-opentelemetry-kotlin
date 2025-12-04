@@ -25,6 +25,8 @@ include(":sdk:trace")
 
 include(":sdk:metrics")
 
+include(":sdk:logs")
+
 include(":sdk:testing")
 
 include(":sdk:common")
