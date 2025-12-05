@@ -12,6 +12,7 @@ kotlin {
                 api(project(":api:all"))
                 api(project(":sdk:common"))
                 api(project(":sdk:trace"))
+                api(project(":sdk:logs"))
 
                 implementation("org.jetbrains.kotlinx:atomicfu:0.25.0")
                 implementation(libs.kotlinx.io.core)

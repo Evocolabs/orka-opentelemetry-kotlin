@@ -16,7 +16,6 @@ import io.opentelemetry.kotlin.sdk.common.InstrumentationLibraryInfo
 import io.opentelemetry.kotlin.sdk.logs.data.ImmutableLogRecordData
 import io.opentelemetry.kotlin.sdk.logs.data.LogRecordData
 import io.opentelemetry.kotlin.sdk.resources.Resource
-import io.opentelemetry.kotlin.sdk.trace.AttributesMap
 import kotlinx.atomicfu.atomic
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
@@ -106,7 +105,7 @@ private constructor(
         return this
     }
 
-    override fun <T : Any> setAttribute(key: AttributeKey<T>, value: T): ReadWriteLogRecord {
+    override fun <T> setAttribute(key: AttributeKey<T>, value: T): ReadWriteLogRecord {
         if (key.key.isEmpty()) {
             return this
         }
@@ -121,7 +120,8 @@ private constructor(
                 logRecordLimits.maxAttributeValueLength
             )
         )
-        attributes.value!![key] = value
+        @Suppress("UNCHECKED_CAST")
+        attributes.value!!.put(key as AttributeKey<Any>, value as Any)
         return this
     }
 

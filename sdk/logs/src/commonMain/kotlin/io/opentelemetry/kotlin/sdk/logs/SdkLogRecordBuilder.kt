@@ -30,7 +30,7 @@ class SdkLogRecordBuilder internal constructor(
     private var severityNumber: Int = 0
     private var severityText: String? = null
     private var body: Value<*>? = null
-    private val attributes: MutableMap<AttributeKey<*>, Any> = mutableMapOf()
+    private val attributes: MutableMap<AttributeKey<*>, Any?> = mutableMapOf()
 
     override fun setTimestamp(timestamp: Long, unit: DateTimeUnit): LogRecordBuilder {
         this.timestampEpochNanos = unit.toNanoseconds(timestamp)
@@ -78,7 +78,7 @@ class SdkLogRecordBuilder internal constructor(
         return this
     }
 
-    override fun <T : Any> setAttribute(key: AttributeKey<T>, value: T): LogRecordBuilder {
+    override fun <T> setAttribute(key: AttributeKey<T>, value: T): LogRecordBuilder {
         if (key.key.isNotEmpty()) {
             attributes[key] = value
         }
@@ -123,8 +123,10 @@ class SdkLogRecordBuilder internal constructor(
 
         // Apply attributes
         attributes.forEach { (key, value) ->
-            @Suppress("UNCHECKED_CAST")
-            logRecord.setAttribute(key as AttributeKey<Any>, value)
+            if (value != null) {
+                @Suppress("UNCHECKED_CAST")
+                logRecord.setAttribute(key as AttributeKey<Any>, value)
+            }
         }
 
         // Emit the log record

@@ -86,7 +86,7 @@ internal constructor(
     }
 
     override suspend fun close() {
-        shutdown().join(10, java.util.concurrent.TimeUnit.SECONDS)
+        shutdown().join(10, kotlinx.datetime.DateTimeUnit.SECOND)
     }
 
     companion object {

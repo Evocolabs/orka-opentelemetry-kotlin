@@ -15,7 +15,7 @@ internal class DefaultLoggerProvider private constructor() : LoggerProvider {
         }
 
         override fun build(): Logger {
-            return DefaultLogger.getInstance()
+            return DefaultLogger.instance
         }
     }
 

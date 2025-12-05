@@ -9,6 +9,7 @@ kotlin {
                 api(project(":context"))
                 api(project(":api:all"))
                 api(project(":sdk:common"))
+                api(project(":sdk:trace"))
 
                 implementation(libs.jetbrains.kotlinx.collections.immutable)
                 implementation(libs.jetbrains.kotlinx.coroutines.core)

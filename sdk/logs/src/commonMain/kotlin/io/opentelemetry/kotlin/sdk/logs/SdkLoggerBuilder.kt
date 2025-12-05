@@ -17,13 +17,13 @@ internal class SdkLoggerBuilder(
 
     private var schemaUrl: String? = null
 
-    override fun setSchemaUrl(schemaUrl: String?): LoggerBuilder {
+    override fun setSchemaUrl(schemaUrl: String): LoggerBuilder {
         this.schemaUrl = schemaUrl
         return this
     }
 
-    override fun setInstrumentationVersion(instrumentationVersion: String?): LoggerBuilder {
-        this.instrumentationVersion = instrumentationVersion
+    override fun setInstrumentationVersion(instrumentationScopeVersion: String): LoggerBuilder {
+        this.instrumentationVersion = instrumentationScopeVersion
         return this
     }
 
