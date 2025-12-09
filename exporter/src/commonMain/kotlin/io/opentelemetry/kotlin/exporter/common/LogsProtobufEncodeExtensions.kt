@@ -6,7 +6,6 @@ import io.opentelemetry.kotlin.api.common.ValueBoolean
 import io.opentelemetry.kotlin.api.common.ValueBytes
 import io.opentelemetry.kotlin.api.common.ValueDouble
 import io.opentelemetry.kotlin.api.common.ValueLong
-import io.opentelemetry.kotlin.api.common.ValueMap
 import io.opentelemetry.kotlin.api.common.ValueString
 import io.opentelemetry.kotlin.sdk.common.InstrumentationLibraryInfo
 import io.opentelemetry.kotlin.sdk.logs.data.LogRecordData
@@ -33,16 +32,9 @@ fun Value<*>.encodeAsAnyValue(): AnyValue {
         is ValueLong -> AnyValue(int_value = this.value)
         is ValueDouble -> AnyValue(double_value = this.value)
         is ValueBytes -> AnyValue(bytes_value = this.value.toByteString())
-        is ValueArray<*> -> AnyValue(
+        is ValueArray -> AnyValue(
             array_value = ArrayValue(
                 values = this.value.map { it.encodeAsAnyValue() }
-            )
-        )
-        is ValueMap -> AnyValue(
-            kvlist_value = KeyValueList(
-                values = this.value.map { (key, value) ->
-                    encodeKeyValue(key, value)
-                }
             )
         )
         else -> throw IllegalArgumentException("Unsupported Value type: ${this::class}")
@@ -87,20 +79,20 @@ fun Int.encodeSeverityNumber(): SeverityNumber {
  * Encodes a single LogRecordData to protobuf LogRecord.
  */
 fun LogRecordData.encode(): PbLogRecord {
-    val traceIdBytes = if (spanContext.isValid()) {
+    val traceIdBytes = if (spanContext.isValid) {
         spanContext.traceId.decodeHex()
     } else {
         ByteString.EMPTY
     }
 
-    val spanIdBytes = if (spanContext.isValid()) {
+    val spanIdBytes = if (spanContext.isValid) {
         spanContext.spanId.decodeHex()
     } else {
         ByteString.EMPTY
     }
 
-    val flags = if (spanContext.isValid()) {
-        spanContext.traceFlags.toByte().toInt()
+    val flags = if (spanContext.isValid) {
+        spanContext.traceFlags.asByte()
     } else {
         0
     }
@@ -112,8 +104,8 @@ fun LogRecordData.encode(): PbLogRecord {
         severity_text = severityText ?: "",
         body = body?.encodeAsAnyValue(),
         attributes = attributes.encode(),
-        dropped_attributes_count = (totalAttributeCount - attributes.size).toUInt(),
-        flags = flags.toUInt(),
+        dropped_attributes_count = (totalAttributeCount - attributes.size),
+        flags = flags.toInt(),
         trace_id = traceIdBytes,
         span_id = spanIdBytes
     )

@@ -57,7 +57,7 @@ class ConsoleLogRecordExporter(
         }
 
         // Trace correlation
-        if (log.spanContext.isValid()) {
+        if (log.spanContext.isValid) {
             println("│ Trace ID: ${log.spanContext.traceId}")
             println("│ Span ID: ${log.spanContext.spanId}")
             println("│ Trace Flags: ${log.spanContext.traceFlags}")
